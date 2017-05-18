@@ -15,7 +15,6 @@ var app = express()
 // set up public directory path and favicon
 app.use(express.static('public'))
 
-
 // load general middleware
 app.use(morgan('dev'))
 app.use(cookieParser())
