@@ -2,20 +2,35 @@ import React from 'react'
 
 import Login from './Login'
 import ProjectSummary from './ProjectSummary'
+import ProjectModal from './ProjectModal'
 
 class App extends React.Component {
 	constructor(props) {
 		super(props)
+
+		this.state = {
+			user: 'Gus',
+			modal: null
+		}
+
+		this.handleClick = this.handleClick.bind(this)
+	}
+	handleClick(project) {
+
+		this.setState({
+			modal: project
+		})
 	}
 	render() {
 
 		var projectList = dummyData.map((project) => {
-			return <ProjectSummary key={project.id} project={project} />
+			return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
 		})
 
-		if (true) { // if the user is logged in
+		if (this.state.user) {
 			return (
 				<div>
+					<ProjectModal project={this.state.modal}/>
 					<h1>Asana Utility</h1>
 					<ul>
 						{projectList}

@@ -5,12 +5,14 @@ class ProjectModal extends React.Component {
 		super(props)
 	}
 	render() {
+
+		if (!this.props.project) return <div>No project...</div>
+
 		var {project_title, tasks_remaining, tasks_completed, status, due, description, team_members} = this.props.project
 
 		var teamMembersList = team_members.map((member) => {
 			return `<li>${member}</li>`
 		})
-
 
 		return (
 			<li className={status}>

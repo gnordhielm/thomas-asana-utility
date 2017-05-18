@@ -5,10 +5,10 @@ class ProjectSummary extends React.Component {
 		super(props)
 	}
 	render() {
-		var {project_title, tasks_remaining, tasks_completed, status, due, description} = this.props.project
+		var {project_title, tasks_remaining, tasks_completed, status, due, description, id} = this.props.project
 
 		return (
-			<li className={status}>
+			<li className={status} onClick={() => this.props.handleClick(this.props.project) }>
 				<h2>{project_title}</h2>
 				<p>{tasks_completed} tasks completed.</p>
 				<p>{tasks_remaining} tasks remaining.</p>
