@@ -10,8 +10,19 @@ class App extends React.Component {
 
 		this.state = {
 			user: 'Gus',
-			modal: null
+			modal: null,
+			projects: []
 		}
+
+		$.ajax({
+			url: 'https://www.reddit.com/r/funny.json',
+			method: 'get'
+		}).done((data) => {
+			console.log(data.data.children)
+			this.setState({
+				projects: dummyData
+			})
+		})
 
 		this.handleClick = this.handleClick.bind(this)
 	}
@@ -23,9 +34,11 @@ class App extends React.Component {
 	}
 	render() {
 
-		var projectList = dummyData.map((project) => {
-			return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
-		})
+		var projectList = this.state.projects.length === 0 
+				? <li>Loading...</li> 
+				: this.state.projects.map((project) => {
+					return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
+				})
 
 		if (this.state.user) {
 			return (
