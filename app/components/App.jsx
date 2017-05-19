@@ -30,7 +30,7 @@ class App extends React.Component {
 		if (this.state.user) {
 			return (
 				<div>
-					<ProjectModal project={this.state.modal}/>
+					<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
 					<h1>Asana Utility</h1>
 					<ul>
 						{projectList}
@@ -81,7 +81,7 @@ const dummyData = [{
 	project_title: 'Project 4',
 	tasks_completed: 7,
 	tasks_remaining: 7,
-	status: 'green',
+	status: 'orange',
 	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
 	due: 'May 18 2017',
 	description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
@@ -90,7 +90,7 @@ const dummyData = [{
 	project_title: 'Project 5',
 	tasks_completed: 6,
 	tasks_remaining: 3,
-	status: 'green',
+	status: 'red',
 	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
 	due: 'May 18 2017',
 	description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'

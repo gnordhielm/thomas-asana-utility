@@ -6,7 +6,7 @@ class ProjectModal extends React.Component {
 	}
 	render() {
 
-		if (!this.props.project) return <div>No project...</div>
+		if (!this.props.project) return null
 
 		var {project_title, tasks_remaining, tasks_completed, status, due, description, team_members} = this.props.project
 
@@ -15,22 +15,25 @@ class ProjectModal extends React.Component {
 		})
 
 		return (
-			<li className={status}>
-				<h2>{project_title}</h2>
-				<p>{tasks_completed} tasks completed.</p>
-				<p>{tasks_remaining} tasks remaining.</p>
-				<p>Due {due}</p>
-				
-				<hr/>
+			<div className='modal-bg'>
+				<div className='modal'>
+					<button onClick={() => this.props.handleClick(null)}>Close</button>
+					<h2>{project_title}</h2>
+					<p>{tasks_completed} tasks completed | {tasks_remaining} tasks remaining</p>
+					<p>Due: {due}</p>
+					<p>Status: {status}</p>
+					
+					<hr/>
 
-				<ul>
-					{teamMembersList}
-				</ul>
-				
-				<hr/>
-				
-				<p>{description}</p>
-			</li>
+					<ul>
+						{teamMembersList}
+					</ul>
+					
+					<hr/>
+					
+					<p>{description}</p>
+				</div>
+			</div>
 		)
 	}
 }

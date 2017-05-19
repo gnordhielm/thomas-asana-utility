@@ -8,7 +8,7 @@ class ProjectSummary extends React.Component {
 		var {project_title, tasks_remaining, tasks_completed, status, due, description, id} = this.props.project
 
 		return (
-			<li className={status} onClick={() => this.props.handleClick(this.props.project) }>
+			<li className={`${status} project-summary`} onClick={() => this.props.handleClick(this.props.project) }>
 				<h2>{project_title}</h2>
 				<p>{tasks_completed} tasks completed.</p>
 				<p>{tasks_remaining} tasks remaining.</p>
