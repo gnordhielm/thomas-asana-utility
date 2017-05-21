@@ -9,72 +9,86 @@ try {
 } catch (err) {
 
 }
+// module.exports = {
+//   entry: [
+//     './app/app.jsx'
+//   ], 
+//   output: {
+//     path: __dirname,
+//     filename: './public/bundle.js'
+//   },
+//   resolve: {
+//     modules: [
+//       path.join(__dirname, 'app/'),
+//       'node_modules',
+//       './app/components'
+//     ]
+//   },
+//   node: {
+//     readline: 'empty'
+//   },
+//   module: {
+//     // loaders tell webpack what to do with odd files
+//     loaders: [
+//       { 
+//         test: /\.json$/, 
+//         loader: 'json' 
+//       },
+//       {
+//         loader: 'babel-loader',
+//         query: {
+//           presets: ['react', 'es2015', 'stage-0']
+//         },
+//         // apply to every file ending in .jsx
+//         test: /\.jsx?$/,
+//         // UNLESS they're in either of these folders
+//         exclude: /(node_modules|bower_components)/
+//       }
+//     ]
+//   }
+// }
+
+var webpack = require('webpack')
+var path = require('path')
 
 module.exports = {
-  entry: [
-    'script!jquery/dist/jquery.min.js',
-    './app/app.jsx'
-  ],
-  externals : {
-    jquery: 'jQuery'
+  context: path.resolve(__dirname, './app'),
+  entry: {
+    app: './app.jsx',
   },
-  // makes sure we don't have to include jQuery in every single module
+  output: {
+    path: path.resolve(__dirname, './public'),
+    filename: 'bundle.js',
+  },
+  resolve: {
+    alias: {
+      Components: path.resolve(__dirname, 'app/components/'),
+      Asana: path.resolve(__dirname, 'app/api/asana.jsx'),
+      AppStyles: path.resolve(__dirname, 'app/styles/app.scss')
+    }
+  },
   plugins: [
-    new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery'
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      // minimize: true,
-      compressor: {
-        warnings: false
-      }
-    }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        NODE_ENV: JSON.stringify(process.env.CLIENT_ID),
+        API_KEY: JSON.stringify(process.env.CLIENT_SECRET)
       }
     })
   ],  
-  output: {
-    path: __dirname,
-    filename: './public/bundle.js'
-  },
-  resolve: {
-    root: __dirname,
-    modulesDirectories: [
-      'node_modules',
-      './app/components',
-    ],
-    alias: {
-      applicationStyles: './app/styles/app.scss',
-    },
-    extensions: ['','.js','.jsx']
+  node: {
+    readline: 'empty'
   },
   module: {
-    // loaders tell webpack what to do with odd files
-    loaders: [
+    rules: [
       {
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-0']
-        },
-        // apply to every file ending in .jsx
-        test: /\.jsx?$/,
-        // UNLESS they're in either of these folders
-        exclude: /(node_modules|bower_components)/
+        test: /\.jsx$/,
+        exclude: [/node_modules/],
+        use: [{
+          loader: 'babel-loader',
+          options: { presets: ['react', 'es2015', 'stage-0'] },
+        }],
       },
-      // load fonts
-      {
-        test: /\.(ttf|woff|woff2)$/,
-        loader: 'file?name=fonts/[name].[ext]'
-      },
-      // load images
-      {
-        test: /\.(png|jpg|jpeg|gif)$/,
-        loader: 'url-loader'
-      }
-    ]
+    ],
   },
-  devtool: process.env.NODE_ENV === 'production' ? undefined : 'source-map'
 }
+

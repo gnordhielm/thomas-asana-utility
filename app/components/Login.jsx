@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Asana from 'Asana'
 
 class Login extends React.Component {
 	constructor(props) {
@@ -8,8 +9,9 @@ class Login extends React.Component {
 		return (
 			<div>
 				<h2>Please log in.</h2>
-				<button>Facebook</button>
-				<button>Google</button>
+				<a href={Asana.AUTH_ENDPOINT}>
+					<button>Log in</button>
+				</a>
 			</div>
 		)
 	}

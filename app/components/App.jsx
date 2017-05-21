@@ -1,28 +1,28 @@
 import React from 'react'
+import * as Asana from 'Asana'
+import $ from 'jquery'
 
-import Login from './Login'
-import ProjectSummary from './ProjectSummary'
-import ProjectModal from './ProjectModal'
+import Login from 'Components/Login.jsx'
+import ProjectSummary from 'Components/ProjectSummary.jsx'
+import ProjectModal from 'Components/ProjectModal.jsx'
 
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			user: 'Gus',
+			user: null,
 			modal: null,
-			projects: []
+			projects: dummyData
 		}
 
 		$.ajax({
-			url: 'https://www.reddit.com/r/funny.json',
-			method: 'get'
-		}).done((data) => {
-			console.log(data.data.children)
-			this.setState({
-				projects: dummyData
-			})
-		})
+					   url: "https://app.asana.com/api/1.0/projects/",
+					   data: { signature: authHeader },
+					   type: "GET",
+					   beforeSend: function(xhr){xhr.setRequestHeader('X-Test-Header', 'test-value');},
+					   success: function(data) { console.log(data) }
+					})
 
 		this.handleClick = this.handleClick.bind(this)
 	}
@@ -31,32 +31,26 @@ class App extends React.Component {
 		this.setState({
 			modal: project
 		})
+
 	}
 	render() {
 
 		var projectList = this.state.projects.length === 0 
-				? <li>Loading...</li> 
+				? <p>Loading...</p> 
 				: this.state.projects.map((project) => {
 					return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
 				})
 
-		if (this.state.user) {
-			return (
-				<div>
-					<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
-					<h1>Asana Utility</h1>
-					<ul>
-						{projectList}
-					</ul>
-				</div>
-			)
-		} else {
-			return (
-				<div>
-					<Login/>
-				</div>
-			)
-		}
+		return (
+			<div>
+				<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
+				<h1>Asana Utility</h1>
+				<ul>
+					{projectList}
+				</ul>
+			</div>
+		)
+		
 	}
 }
 
