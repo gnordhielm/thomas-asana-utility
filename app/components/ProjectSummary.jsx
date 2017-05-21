@@ -5,16 +5,20 @@ class ProjectSummary extends React.Component {
 		super(props)
 	}
 	render() {
-		var {project_title, tasks_remaining, tasks_completed, status, due, description, id} = this.props.project
+		var {color, name, due_date, created_at, id} = this.props.project
+
+		if (!color) color = 'green'
+
+		var renderDate = (date) => {
+			return new Date(date).toDateString()
+		}
 
 		return (
-			<li className={`${status} project-summary`} onClick={() => this.props.handleClick(this.props.project) }>
-				<h2>{project_title}</h2>
-				<p>{tasks_completed} tasks completed.</p>
-				<p>{tasks_remaining} tasks remaining.</p>
-				<p>Due {due}</p>
+			<li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project) }>
+				<h2>{name}</h2>
 				<hr/>
-				<p>{description}</p>
+				<p>Created {renderDate(created_at)}</p>
+				<p>Due {renderDate(due_date)}</p>
 			</li>
 		)
 	}

@@ -120,7 +120,7 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Route path="/">
 			<IndexRoute component={Login} onEnter={loginRedirect} />
-			<Route path="projects" component={App} onEnter={authCheck} projects={dummyData} />
+			<Route path="projects" component={App} onEnter={authCheck} />
 		</Route>
 	</Router>,
 	document.getElementById('app')

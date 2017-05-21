@@ -8,30 +8,30 @@ class ProjectModal extends React.Component {
 
 		if (!this.props.project) return null
 
-		var {project_title, tasks_remaining, tasks_completed, status, due, description, team_members} = this.props.project
+		var {color, name, due_date, created_at, id, members} = this.props.project
 
-		var teamMembersList = team_members.map((member) => {
-			return `<li>${member}</li>`
+		var renderDate = (date) => {
+			return new Date(date).toDateString()
+		}
+
+		var teamMembersList = members.map((member, i, arr) => {
+			if (i === arr.length - 1) return `and ${member.name}.`
+			return `${member.name}, `
 		})
 
 		return (
 			<div className='modal-bg'>
 				<div className='modal'>
 					<button onClick={() => this.props.handleClick(null)}>Close</button>
-					<h2>{project_title}</h2>
-					<p>{tasks_completed} tasks completed | {tasks_remaining} tasks remaining</p>
-					<p>Due: {due}</p>
-					<p>Status: {status}</p>
+					<h2>{name}</h2>
+					<p>Created: {renderDate(created_at)}</p>
+					<p>Due: {renderDate(due_date)}</p>
+					<p>Status: {status || 'none'}</p>
+					<p>Color: {status || 'none'}</p>
 					
 					<hr/>
-
-					<ul>
-						{teamMembersList}
-					</ul>
+					<p>Members: {teamMembersList}</p>
 					
-					<hr/>
-					
-					<p>{description}</p>
 				</div>
 			</div>
 		)
