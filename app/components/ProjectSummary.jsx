@@ -5,7 +5,7 @@ class ProjectSummary extends React.Component {
 		super(props)
 	}
 	render() {
-		var {color, name, due_date, created_at, id} = this.props.project
+		var {color, name, due_date, created_at, id, members} = this.props.project
 
 		if (!color) color = 'green'
 
@@ -13,10 +13,15 @@ class ProjectSummary extends React.Component {
 			return new Date(date).toDateString()
 		}
 
+		var teamMembersList = members.map((member, i, arr) => {
+			if (i === arr.length - 1) return `and ${member.name}.`
+			return `${member.name}, `
+		})
+
 		return (
 			<li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project) }>
 				<h2>{name}</h2>
-				<hr/>
+				<p>Members: {teamMembersList}</p>
 				<p>Created {renderDate(created_at)}</p>
 				<p>Due {renderDate(due_date)}</p>
 			</li>

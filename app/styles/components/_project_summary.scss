@@ -1,9 +1,20 @@
 
 .project-summary {
-	margin: 10px;
-	padding: 20px;
-	list-style-type: none;
+	// margin: 10px;
+	// padding: 20px;
+  list-style-type: none;
+      width: 200px;
+      min-height: 250px;
+      border: 1px solid #000;
+      display: -moz-inline-stack;
+      display: inline-block;
+      vertical-align: top;
+      margin: 5px;
+      zoom: 1;
+      *display: inline;
+      _height: 250px;
 }
+
 
 .green {
 	border: 3px solid green;
