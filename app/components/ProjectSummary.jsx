@@ -21,12 +21,15 @@ class ProjectSummary extends React.Component {
 		return (
 			<li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project) }>
 				<h2>{name}</h2>
+				<p>Remaining  | Completed </p>
 				<p>Members: {teamMembersList}</p>
-				<p>Created {renderDate(created_at)}</p>
-				<p>Due {renderDate(due_date)}</p>
+				<p>Created: {renderDate(created_at)}</p>
+				<p>Due: {renderDate(due_date)}</p>
 			</li>
 		)
 	}
 }
+
+
 
 export default ProjectSummary

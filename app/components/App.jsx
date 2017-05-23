@@ -66,23 +66,23 @@ class App extends React.Component {
 	render() {
 
 
-		var projectList = this.state.projects.length === 0 
-				? <p>Loading...</p> 
+		var projectList = this.state.projects.length === 0
+				? <p>Loading...</p>
 				: this.state.projects.map((project) => {
 					return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
 				})
 
 		return (
 			<div>
-				<button onClick={this.logOut}>Log out</button>
+				<button className='logout' onClick={this.logOut}>Log out</button>
 				<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
-				<h1>Asana Utility</h1>
+				<h1>Job Status Board</h1>
 				<ul>
 					{projectList}
 				</ul>
 			</div>
 		)
-		
+
 	}
 }
 
