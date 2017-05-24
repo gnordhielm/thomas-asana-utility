@@ -5,7 +5,7 @@ class ProjectSummary extends React.Component {
 		super(props)
 	}
 	render() {
-		var {color, name, due_date, created_at, id, members} = this.props.project
+		var {color, name, due_date, created_at, current_status, modified_at, id, members} = this.props.project
 
 		if (!color) color = 'green'
 
@@ -27,8 +27,7 @@ class ProjectSummary extends React.Component {
 				<h2>{name}</h2>
 				<p>Remaining  | Completed </p>
 				<p>Team: {teamMembersList}</p>
-				<p>Created: {renderDate(created_at)}</p>
-				<p>Due: {renderDate(due_date)}</p>
+				<p>Updated: {renderDate(modified_at)}</p>
 			</li>
 		)
 	}
