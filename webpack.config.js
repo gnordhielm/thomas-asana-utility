@@ -12,7 +12,7 @@ try {
 // module.exports = {
 //   entry: [
 //     './app/app.jsx'
-//   ], 
+//   ],
 //   output: {
 //     path: __dirname,
 //     filename: './public/bundle.js'
@@ -30,9 +30,9 @@ try {
 //   module: {
 //     // loaders tell webpack what to do with odd files
 //     loaders: [
-//       { 
-//         test: /\.json$/, 
-//         loader: 'json' 
+//       {
+//         test: /\.json$/,
+//         loader: 'json'
 //       },
 //       {
 //         loader: 'babel-loader',
@@ -54,7 +54,7 @@ var path = require('path')
 module.exports = {
   context: path.resolve(__dirname, './app'),
   entry: {
-    app: './app.jsx',
+    app: 'app.jsx',
   },
   output: {
     path: path.resolve(__dirname, './public'),
@@ -74,7 +74,7 @@ module.exports = {
         API_KEY: JSON.stringify(process.env.CLIENT_SECRET)
       }
     })
-  ],  
+  ],
   node: {
     readline: 'empty'
   },
@@ -91,4 +91,3 @@ module.exports = {
     ],
   },
 }
-
