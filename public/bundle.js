@@ -25900,7 +25900,7 @@ var Asana = __webpack_require__(162);
 // Configuration - move out to .env file
 var CLIENT_ID = exports.CLIENT_ID = '344321689330782';
 var CLIENT_SECRET = exports.CLIENT_SECRET = '3bc83775e039d433df8c48a275387f30';
-var REDIRECT_URI = exports.REDIRECT_URI = 'http://localhost:5000/projects';
+var REDIRECT_URI = exports.REDIRECT_URI = 'https://aqueous-crag-19153.herokuapp.com/projects';
 var AUTH_ENDPOINT = exports.AUTH_ENDPOINT = 'https://app.asana.com/-/oauth_authorize?response_type=code&client_id=' + 344321689330782 + '&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fprojects';
 
 /***/ }),
