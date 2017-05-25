@@ -76,7 +76,11 @@ class App extends React.Component {
 			<div>
 				<button className='logout' onClick={this.logOut}>Log out</button>
 				<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
-				<h1>Job Status Board</h1>
+
+			  <div className='navbar'>
+			  <h1>Job Status Board</h1>
+				</div>
+
 				<ul>
 					{projectList}
 				</ul>
