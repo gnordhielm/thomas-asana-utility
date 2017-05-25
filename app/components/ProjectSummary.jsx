@@ -48,7 +48,7 @@ class ProjectSummary extends React.Component {
                 </p>
                 <p>Team: {teamMembersList}</p>
                 <p>Updated: {renderDate(modified_at)}</p>
-                <p>Description: {text}</p>
+                <p>{text}</p>
             </li>
         )
     }
