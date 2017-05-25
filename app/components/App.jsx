@@ -74,11 +74,10 @@ class App extends React.Component {
 
 		return (
 			<div>
-				<button className='logout' onClick={this.logOut}>Log out</button>
-				<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
-
 			  <div className='navbar'>
 			  <h1>Job Status Board</h1>
+					<button className='logout' onClick={this.logOut}>Log out</button>
+					<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
 				</div>
 
 				<ul>

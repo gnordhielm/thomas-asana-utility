@@ -49013,19 +49013,19 @@ var App = function (_React$Component) {
 				'div',
 				null,
 				_react2.default.createElement(
-					'button',
-					{ className: 'logout', onClick: this.logOut },
-					'Log out'
-				),
-				_react2.default.createElement(_ProjectModal2.default, { handleClick: this.handleClick, project: this.state.modal }),
-				_react2.default.createElement(
 					'div',
 					{ className: 'navbar' },
 					_react2.default.createElement(
 						'h1',
 						null,
 						'Job Status Board'
-					)
+					),
+					_react2.default.createElement(
+						'button',
+						{ className: 'logout', onClick: this.logOut },
+						'Log out'
+					),
+					_react2.default.createElement(_ProjectModal2.default, { handleClick: this.handleClick, project: this.state.modal })
 				),
 				_react2.default.createElement(
 					'ul',
@@ -52361,7 +52361,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  margin: 0 auto;\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  padding: 40px;\n  margin: 20px;\n  color: white; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n", ""]);
+exports.push([module.i, ".logout {\n  margin: 0 auto;\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px;\n  float: right; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  padding: 40px;\n  margin: 20px;\n  color: white; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n", ""]);
 
 // exports
 
