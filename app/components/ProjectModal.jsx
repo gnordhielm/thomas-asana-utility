@@ -38,7 +38,7 @@ class ProjectModal extends React.Component {
         return (
             <div className='modal-bg'>
                 <div className={`${color} modal`}>
-                    <button onClick={() => this.props.handleClick(null)}>Close</button>
+                    <button className='close-button' onClick={() => this.props.handleClick(null)}>Close</button>
                     <h2>{name}</h2>
                     <p>Remaining | Completed</p>
                     <p>Team: {teamMembersList}</p>

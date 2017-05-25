@@ -9,10 +9,15 @@
     overflow: hidden;
 }
 
+.close-button {
+  float: right;
+}
+
 .modal {
     // background: white;
-    padding: 20px;
+    padding: 40px;
     margin: 20px;
+    color: white;
 }
 
 // Status Colors
