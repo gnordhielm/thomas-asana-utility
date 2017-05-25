@@ -54,7 +54,7 @@ var path = require('path')
 module.exports = {
   context: path.resolve(__dirname, './app'),
   entry: {
-    app: 'app.jsx',
+    app: './app.jsx',
   },
   output: {
     path: path.resolve(__dirname, './public'),

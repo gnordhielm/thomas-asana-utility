@@ -25895,13 +25895,14 @@ module.exports = setInnerHTML;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
 var Asana = __webpack_require__(162);
 
 // Configuration - move out to .env file
 var CLIENT_ID = exports.CLIENT_ID = '344321689330782';
 var CLIENT_SECRET = exports.CLIENT_SECRET = '3bc83775e039d433df8c48a275387f30';
-var REDIRECT_URI = exports.REDIRECT_URI = 'https://aqueous-crag-19153.herokuapp.com/projects';
-var AUTH_ENDPOINT = exports.AUTH_ENDPOINT = 'https://app.asana.com/-/oauth_authorize?response_type=code&client_id=' + 344321689330782 + '&redirect_uri=https%3A%2F%2Faqueous-crag-19153.herokuapp.com%2Fprojects';
+var REDIRECT_URI = exports.REDIRECT_URI = 'https://localhost:5000/projects';
+var AUTH_ENDPOINT = exports.AUTH_ENDPOINT = 'https://app.asana.com/-/oauth_authorize?response_type=code&client_id=' + 344321689330782 + '&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fprojects';
 
 /***/ }),
 /* 59 */
@@ -52354,7 +52355,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  margin: 0 auto;\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.modal {\n  background: white;\n  padding: 20px;\n  margin: 20px; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 5px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.green {\n  background-color: green; }\n\n.yellow {\n  background-color: yellow; }\n\n.red {\n  background-color: red; }\n", ""]);
+exports.push([module.i, ".logout {\n  margin: 0 auto;\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.modal {\n  background: white;\n  padding: 20px;\n  margin: 20px; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 5px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.green {\n  background-color: green; }\n\n.yellow {\n  background-color: yellow; }\n\n.red {\n  background-color: red; }\n", ""]);
 
 // exports
 
@@ -65787,57 +65788,57 @@ var authCheck = function authCheck() {
 	}
 };
 
-var loginRedirect = function loginRedirect() {
-	// already logged in, info is stored in a cookie
-};
-var dummyData = [{
-	id: 1,
-	project_title: 'Project 1',
-	tasks_completed: 5,
-	tasks_remaining: 7,
-	status: 'green',
-	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
-	due: 'May 18 2017',
-	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
-}, {
-	id: 2,
-	project_title: 'Project 2',
-	tasks_completed: 4,
-	tasks_remaining: 3,
-	status: 'green',
-	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
-	due: 'May 19 2017',
-	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
-}, {
-	id: 3,
-	project_title: 'Project 3',
-	tasks_completed: 1,
-	tasks_remaining: 9,
-	status: 'green',
-	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
-	due: 'May 18 2017',
-	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
-}, {
-	id: 4,
-	project_title: 'Project 4',
-	tasks_completed: 7,
-	tasks_remaining: 7,
-	status: 'orange',
-	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
-	due: 'May 18 2017',
-	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
-}, {
-	id: 5,
-	project_title: 'Project 5',
-	tasks_completed: 6,
-	tasks_remaining: 3,
-	status: 'red',
-	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
-	due: 'May 18 2017',
-	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
-}];
+var loginRedirect = function loginRedirect() {}
+// already logged in, info is stored in a cookie
 
-_reactDom2.default.render(_react2.default.createElement(
+// const dummyData = [{
+// 	id: 1,
+// 	project_title: 'Project 1',
+// 	tasks_completed: 5,
+// 	tasks_remaining: 7,
+// 	status: 'green',
+// 	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
+// 	due: 'May 18 2017',
+// 	description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
+// },{
+// 	id: 2,
+// 	project_title: 'Project 2',
+// 	tasks_completed: 4,
+// 	tasks_remaining: 3,
+// 	status: 'green',
+// 	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
+// 	due: 'May 19 2017',
+// 	description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
+// },{
+// 	id: 3,
+// 	project_title: 'Project 3',
+// 	tasks_completed: 1,
+// 	tasks_remaining: 9,
+// 	status: 'green',
+// 	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
+// 	due: 'May 18 2017',
+// 	description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
+// },{
+// 	id: 4,
+// 	project_title: 'Project 4',
+// 	tasks_completed: 7,
+// 	tasks_remaining: 7,
+// 	status: 'orange',
+// 	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
+// 	due: 'May 18 2017',
+// 	description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
+// },{
+// 	id: 5,
+// 	project_title: 'Project 5',
+// 	tasks_completed: 6,
+// 	tasks_remaining: 3,
+// 	status: 'red',
+// 	team_members: ['Doug', 'Mark', 'Jack', 'Brenda', 'Ming'],
+// 	due: 'May 18 2017',
+// 	description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula rhoncus justo. Proin sit amet urna nunc. Integer sit amet augue cursus, volutpat turpis vel, tristique sem. Proin aliquam mi at augue porta ullamcorper. Duis nec augue finibus, laoreet nisi rhoncus, blandit ipsum. Fusce molestie varius sodales.'
+// }]
+
+;_reactDom2.default.render(_react2.default.createElement(
 	_reactRouter.Router,
 	{ history: _reactRouter.browserHistory },
 	_react2.default.createElement(
