@@ -30,6 +30,8 @@ right: 49px;
 top: 16px;
 }
 
+
+
 .left {
   border-right: 1px solid black;
   width: 20%;
@@ -43,6 +45,25 @@ top: 16px;
   vertical-align: top;
   padding: 20px;
 }
+
+@media screen and (max-width: 850px) {
+  .left {
+    border-right: none;
+    border-bottom: 1px solid black;
+  }
+
+  .right, .left {
+    display: block;
+    width: auto;
+    padding-right: 10px;
+  }
+
+  .modal {
+    overflow: scroll;
+    height: 90vh;
+  }
+}
+
 // Status Colors
 .green {
   background-color: #2ae0a0;
