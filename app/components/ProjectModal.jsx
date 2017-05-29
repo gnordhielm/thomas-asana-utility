@@ -20,17 +20,17 @@ class ProjectModal extends React.Component {
             workspace
         } = this.props.project
 
-				if (!color) {
+        if (!color) {
             current_status
                 ? color = current_status.color
                 : color = 'green'
         }
 
         if (current_status) {
-					var text = current_status.text;
-				} else {
-					var text = 'No update available.'
-				}
+            var text = current_status.text;
+        } else {
+            var text = 'No update available.'
+        }
 
         var renderDate = (date) => {
             return new Date(date).toDateString()
@@ -47,16 +47,19 @@ class ProjectModal extends React.Component {
         return (
             <div className='modal-bg'>
                 <div className={`${color} modal`}>
-                    <p className='close-button' onClick={() => this.props.handleClick(null)}>X</p>
-                    <h2>{name}</h2>
-                    <p>{workspace}</p>
-                    <p>Remaining | Completed</p>
-                    <p>Team: {teamMembersList}</p>
-                    <p>Updated: {renderDate(modified_at)}</p>
-                    <hr/>
-                    <p>{text}</p>
+                <p className='close-button' onClick={() => this.props.handleClick(null)}>&#10005;</p>
 
-                    <hr/>
+                    <div className='left'>
+                        <h2>{name}</h2>
+                        <p>{workspace}</p>
+                        <p>Remaining | Completed</p>
+                        <p>Team: {teamMembersList}</p>
+                    </div>
+                    <div className='right'>
+
+                        <p>Updated: {renderDate(modified_at)}</p>
+                        <p>{text}</p>
+                    </div>
 
                 </div>
             </div>
