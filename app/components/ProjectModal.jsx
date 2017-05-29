@@ -16,7 +16,8 @@ class ProjectModal extends React.Component {
             created_at,
             id,
             color,
-            members
+            members,
+            workspace
         } = this.props.project
 
 				if (!color) {
@@ -24,6 +25,12 @@ class ProjectModal extends React.Component {
                 ? color = current_status.color
                 : color = 'green'
         }
+
+        if (current_status) {
+					var text = current_status.text;
+				} else {
+					var text = 'No update available.'
+				}
 
         var renderDate = (date) => {
             return new Date(date).toDateString()
@@ -35,16 +42,19 @@ class ProjectModal extends React.Component {
             return `${member.name}, `
         })
 
+        var workspace = workspace.name;
+
         return (
             <div className='modal-bg'>
                 <div className={`${color} modal`}>
-                    <button className='close-button' onClick={() => this.props.handleClick(null)}>Close</button>
+                    <p className='close-button' onClick={() => this.props.handleClick(null)}>X</p>
                     <h2>{name}</h2>
+                    <p>{workspace}</p>
                     <p>Remaining | Completed</p>
                     <p>Team: {teamMembersList}</p>
                     <p>Updated: {renderDate(modified_at)}</p>
                     <hr/>
-                    <p>Description: Iceland pinterest wolf, four dollar toast narwhal blog pug listicle. Butcher blue bottle shabby chic, raw denim green juice keytar XOXO etsy cold-pressed pour-over lomo air plant gochujang synth quinoa. Chillwave farm-to-table retro fanny pack blue bottle, locavore salvia synth.</p>
+                    <p>{text}</p>
 
                     <hr/>
 

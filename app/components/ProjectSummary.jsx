@@ -30,21 +30,21 @@ class ProjectSummary extends React.Component {
         var renderDate = (date) => {
             return new Date(date).toDateString()
         }
-
-        // var renderColor = (color) => {
-        // 	return new Color(color)
-        // }
-
+// Display team members
         var teamMembersList = members.map((member, i, arr) => {
             if (i === arr.length - 1)
                 return `and ${member.name}.`
             return `${member.name}, `
         })
 
+// Display tasks remaining and Completed
+        // var taskcompleted = tasks.completed;
+
+
         return (
             <li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project)}>
                 <h2>{name}</h2>
-                <p>Remaining | Completed
+                <p>Remaining  | Completed
                 </p>
                 <p>Team: {teamMembersList}</p>
                 <p>Updated: {renderDate(modified_at)}</p>
