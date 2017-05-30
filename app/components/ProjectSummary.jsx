@@ -1,8 +1,34 @@
 import React from 'react'
+import $ from 'jquery'
 
 class ProjectSummary extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+          tasks: []
+        }
+    }
+
+    componentWillMount() {
+      var that = this
+      setTimeout(() => {
+        that.props.project.tasks.forEach((task) => {
+          $.ajax({
+            url: `https://app.asana.com/api/1.0/tasks/${task.id}`,
+						type: "GET",
+						headers: {
+							"Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+						},
+            success: function(response) {
+              var newTasks = that.state.tasks.slice()
+              newTasks.push(response.data)
+              that.setState({
+                tasks: newTasks
+              })
+            }
+          })
+        })
+      }, 100)
     }
     render() {
         var {
@@ -38,13 +64,17 @@ class ProjectSummary extends React.Component {
         })
 
 // Display tasks remaining and Completed
-        // var taskcompleted = tasks.completed;
+        var taskcompleted = 0;
+        var taskremaining = 0;
+        this.state.tasks.forEach((task) => {
+          task.completed ? taskcompleted += 1 : taskremaining += 1
+        })
 
 
         return (
             <li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project)}>
                 <h2>{name}</h2>
-                <p>Remaining  | Completed
+                <p>{taskremaining} Remaining | Completed {taskcompleted}
                 </p>
                 <p>Team: {teamMembersList}</p>
                 <p>Updated: {renderDate(modified_at)}</p>

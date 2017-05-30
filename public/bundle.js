@@ -48993,6 +48993,28 @@ var App = function (_React$Component) {
 				});
 			}, 1500);
 		}
+		// componentDidMount() {
+		// 	var that = this
+		// 	var currentProjects = that.state.projects.slice()
+		// 	setTimeout(() => {
+		// 		currentProjects.map((proj) => {
+		// 			return proj.tasks.map((task) => {
+		// 				return $.ajax({
+		// 					url: `https://app.asana.com/api/1.0/tasks/${task.id}`,
+		// 					type: "GET",
+		// 					headers: {
+		// 						"Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+		// 					},
+		// 					success: function(fullTask) {
+		// 						return fullTask
+		// 					}
+		// 				})
+		// 			})
+		// 		})
+		// 		console.log(currentProjects)
+		// 	}, 3000)
+		// }
+
 	}, {
 		key: 'handleClick',
 		value: function handleClick(project) {
@@ -52171,6 +52193,10 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _jquery = __webpack_require__(92);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -52185,10 +52211,38 @@ var ProjectSummary = function (_React$Component) {
     function ProjectSummary(props) {
         _classCallCheck(this, ProjectSummary);
 
-        return _possibleConstructorReturn(this, (ProjectSummary.__proto__ || Object.getPrototypeOf(ProjectSummary)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ProjectSummary.__proto__ || Object.getPrototypeOf(ProjectSummary)).call(this, props));
+
+        _this.state = {
+            tasks: []
+        };
+        return _this;
     }
 
     _createClass(ProjectSummary, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var that = this;
+            setTimeout(function () {
+                that.props.project.tasks.forEach(function (task) {
+                    _jquery2.default.ajax({
+                        url: 'https://app.asana.com/api/1.0/tasks/' + task.id,
+                        type: "GET",
+                        headers: {
+                            "Authorization": 'Bearer ' + localStorage.getItem('accessToken')
+                        },
+                        success: function success(response) {
+                            var newTasks = that.state.tasks.slice();
+                            newTasks.push(response.data);
+                            that.setState({
+                                tasks: newTasks
+                            });
+                        }
+                    });
+                });
+            }, 100);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -52223,8 +52277,11 @@ var ProjectSummary = function (_React$Component) {
             });
 
             // Display tasks remaining and Completed
-            // var taskcompleted = tasks.completed;
-
+            var taskcompleted = 0;
+            var taskremaining = 0;
+            this.state.tasks.forEach(function (task) {
+                task.completed ? taskcompleted += 1 : taskremaining += 1;
+            });
 
             return _react2.default.createElement(
                 'li',
@@ -52239,7 +52296,9 @@ var ProjectSummary = function (_React$Component) {
                 _react2.default.createElement(
                     'p',
                     null,
-                    'Remaining  | Completed'
+                    taskremaining,
+                    ' Remaining | Completed ',
+                    taskcompleted
                 ),
                 _react2.default.createElement(
                     'p',

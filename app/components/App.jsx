@@ -65,6 +65,27 @@ class App extends React.Component {
      })
 		}, 1500)
 	}
+	// componentDidMount() {
+	// 	var that = this
+	// 	var currentProjects = that.state.projects.slice()
+	// 	setTimeout(() => {
+	// 		currentProjects.map((proj) => {
+	// 			return proj.tasks.map((task) => {
+	// 				return $.ajax({
+	// 					url: `https://app.asana.com/api/1.0/tasks/${task.id}`,
+	// 					type: "GET",
+	// 					headers: {
+	// 						"Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+	// 					},
+	// 					success: function(fullTask) {
+	// 						return fullTask
+	// 					}
+	// 				})
+	// 			})
+	// 		})
+	// 		console.log(currentProjects)
+	// 	}, 3000)
+	// }
 	handleClick(project) {
 		this.setState({
 			modal: project
