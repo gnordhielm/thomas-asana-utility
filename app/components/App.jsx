@@ -36,13 +36,26 @@ class App extends React.Component {
 			       url: `https://app.asana.com/api/1.0/projects/${item.id}`,
 			       type: "GET",
 			       headers: { "Authorization": `Bearer ${localStorage.getItem('accessToken')}`},
-			       success: function(response) {
-							console.log('success')
-			       	 var newProjects = that.state.projects.slice()
-			       	 newProjects.push(response.data)
-			         that.setState({
-			           projects: newProjects
-			         })
+
+						 success: function(response) {
+							 $.ajax({
+								 url: `https://app.asana.com/api/1.0/projects/${item.id}/tasks`,
+								 type: "GET",
+								 headers: {
+									 "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+								 },
+								 success: function(res) {
+									 var newProjects = that.state.projects.slice()
+									 var thisProject = response.data
+									 thisProject.tasks = res.data
+									 newProjects.push(thisProject)
+									 that.setState({
+										 projects: newProjects
+									 })
+								 }
+
+							 })
+
 			       }
 	       	})
         })
@@ -75,8 +88,10 @@ class App extends React.Component {
 		return (
 			<div>
 			  <div className='navbar'>
-			  <h1>Job Status Board</h1>
-					<button className='logout' onClick={this.logOut}>Log out</button>
+			  <ul className='navtitle'>
+					<li>Job Status Board</li>
+					<li className='logout' onClick={this.logOut}>Log out</li>
+					</ul>
 					<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
 				</div>
 

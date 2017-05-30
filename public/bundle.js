@@ -48966,12 +48966,24 @@ var App = function (_React$Component) {
 								url: 'https://app.asana.com/api/1.0/projects/' + item.id,
 								type: "GET",
 								headers: { "Authorization": 'Bearer ' + localStorage.getItem('accessToken') },
+
 								success: function success(response) {
-									console.log('success');
-									var newProjects = that.state.projects.slice();
-									newProjects.push(response.data);
-									that.setState({
-										projects: newProjects
+									_jquery2.default.ajax({
+										url: 'https://app.asana.com/api/1.0/projects/' + item.id + '/tasks',
+										type: "GET",
+										headers: {
+											"Authorization": 'Bearer ' + localStorage.getItem('accessToken')
+										},
+										success: function success(res) {
+											var newProjects = that.state.projects.slice();
+											var thisProject = response.data;
+											thisProject.tasks = res.data;
+											newProjects.push(thisProject);
+											that.setState({
+												projects: newProjects
+											});
+										}
+
 									});
 								}
 							});
@@ -49016,14 +49028,18 @@ var App = function (_React$Component) {
 					'div',
 					{ className: 'navbar' },
 					_react2.default.createElement(
-						'h1',
-						null,
-						'Job Status Board'
-					),
-					_react2.default.createElement(
-						'button',
-						{ className: 'logout', onClick: this.logOut },
-						'Log out'
+						'ul',
+						{ className: 'navtitle' },
+						_react2.default.createElement(
+							'li',
+							null,
+							'Job Status Board'
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'logout', onClick: this.logOut },
+							'Log out'
+						)
 					),
 					_react2.default.createElement(_ProjectModal2.default, { handleClick: this.handleClick, project: this.state.modal })
 				),
@@ -52381,7 +52397,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  margin: 0 auto;\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px;\n  float: right; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n", ""]);
+exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px;\n  float: right;\n  margin: -44px 15px 20px 20px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navtitle {\n  list-style-type: none;\n  font-size: 30px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n", ""]);
 
 // exports
 
