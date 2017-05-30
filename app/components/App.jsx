@@ -16,11 +16,17 @@ class App extends React.Component {
 			modal: null,
 			projects: [],
 			taskcompleted: 0,
-			taskremaining: 0
+			taskremaining: 0,
+			projectsToShow: []
 		}
+
+
 
 		this.handleClick = this.handleClick.bind(this)
 		this.componentWillMount = this.componentWillMount.bind(this)
+		this.showActive = this.showActive.bind(this)
+		this.showDeveloping = this.showDeveloping.bind(this)
+
 	}
 	componentWillMount(){
 
@@ -56,8 +62,14 @@ class App extends React.Component {
 										 if (a.name > b.name) return 1;
 										 return 0;
 									 })
+
+								 		var activeProjects = that.state.projectsToShow.slice()
+										if (thisProject.workspace.name == 'Active') {
+								 				activeProjects.push(thisProject)
+								 			}
 									 that.setState({
-										 projects: newProjects
+										 projects: newProjects,
+										 projectsToShow: activeProjects
 									 })
 								 }
 
@@ -100,6 +112,31 @@ class App extends React.Component {
 			taskcompleted: completed
 		})
 	}
+	showActive() {
+		var activeProjects = []
+		this.state.projects.forEach((project) => {
+			if (project.workspace.name == 'Active') {
+				activeProjects.push(project)
+			}
+		})
+
+		this.setState({
+			projectsToShow: activeProjects
+		})
+	}
+
+	showDeveloping() {
+		var developingProjects = []
+		this.state.projects.forEach((project) => {
+			if (project.workspace.name != 'Active') {
+				developingProjects.push(project)
+			}
+		})
+
+		this.setState({
+			projectsToShow: developingProjects
+		})
+	}
 	logOut(){
 		localStorage.setItem('authCode', '')
 		localStorage.setItem('accessToken', '')
@@ -108,20 +145,25 @@ class App extends React.Component {
 	}
 	render() {
 
-
-		var projectList = this.state.projects.length === 0
+		var projectList = this.state.projectsToShow.length === 0
 				? <p>Loading...</p>
-				: this.state.projects.map((project) => {
+				: this.state.projectsToShow.map((project) => {
 					return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
 				})
+
+		var active = 0;
+		var developing = 0;
+		this.state.projects.forEach((project) => {
+			project.workspace.name == 'Active' ? active += 1 : developing += 1;
+		})
 
 		return (
 			<div>
 			  <div className='navbar'>
 					<h1 className='navJob'>Job Status Board</h1>
 				  <ul className='navright'>
-						<li>Active</li>
-						<li>Developing</li>
+						<li onClick={this.showActive}>Active ({active})</li>
+						<li onClick={this.showDeveloping}>Developing ({developing})</li>
 						<li className='logout' onClick={this.logOut}>Log out</li>
 					</ul>
 					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>

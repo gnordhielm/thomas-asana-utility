@@ -63,6 +63,20 @@ class ProjectSummary extends React.Component {
             return `${member.name}, `
         })
 
+        var membersList = members.map((member) => {
+          var names = member.name.split(' ')
+          var initials = ''
+          initials += names[0].split('')[0]
+          if (names[1]) {
+            initials += names[1].split('')[0]
+          } else {
+            initials += names[0].split('')[1]
+          }
+          return (<li className='whitecircle'>
+                    {initials}
+                  </li>)
+        })
+
 // Display tasks remaining and Completed
         var taskcompleted = 0;
         var taskremaining = 0;
@@ -76,7 +90,7 @@ class ProjectSummary extends React.Component {
                 <h2>{name}</h2>
                 <p>{taskremaining} Remaining | Completed {taskcompleted}
                 </p>
-                <p>Team: {teamMembersList}</p>
+                <ul className={`${color}-text membersList`}>{membersList}</ul>
                 <p>Updated: {renderDate(modified_at)}</p>
                 <p>{text}</p>
             </li>

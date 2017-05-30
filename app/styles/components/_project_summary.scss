@@ -18,16 +18,41 @@
       _height: 250px;
 }
 
+.membersList {
+	list-style-type: none;
+
+}
+
+.whitecircle {
+	display: inline-block;
+	background-color: white;
+	border-radius: 100px;
+	text-align: center;
+	padding: 10px;
+}
+
 // Status Colors
 
 .green {
 	background-color: #2ae0a0;
 }
 
+.green-text {
+	color: #2ae0a0;
+}
+
 .yellow {
 	background-color: #f7a902;
 }
 
+.yellow-text {
+	color: #f7a902;
+}
+
 .red {
 	background-color: red;
+}
+
+.red-text {
+	color: red;
 }

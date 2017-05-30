@@ -48942,11 +48942,15 @@ var App = function (_React$Component) {
 			modal: null,
 			projects: [],
 			taskcompleted: 0,
-			taskremaining: 0
+			taskremaining: 0,
+			projectsToShow: []
 		};
 
 		_this.handleClick = _this.handleClick.bind(_this);
 		_this.componentWillMount = _this.componentWillMount.bind(_this);
+		_this.showActive = _this.showActive.bind(_this);
+		_this.showDeveloping = _this.showDeveloping.bind(_this);
+
 		return _this;
 	}
 
@@ -48986,8 +48990,14 @@ var App = function (_React$Component) {
 												if (a.name > b.name) return 1;
 												return 0;
 											});
+
+											var activeProjects = that.state.projectsToShow.slice();
+											if (thisProject.workspace.name == 'Active') {
+												activeProjects.push(thisProject);
+											}
 											that.setState({
-												projects: newProjects
+												projects: newProjects,
+												projectsToShow: activeProjects
 											});
 										}
 
@@ -49032,6 +49042,34 @@ var App = function (_React$Component) {
 			});
 		}
 	}, {
+		key: 'showActive',
+		value: function showActive() {
+			var activeProjects = [];
+			this.state.projects.forEach(function (project) {
+				if (project.workspace.name == 'Active') {
+					activeProjects.push(project);
+				}
+			});
+
+			this.setState({
+				projectsToShow: activeProjects
+			});
+		}
+	}, {
+		key: 'showDeveloping',
+		value: function showDeveloping() {
+			var developingProjects = [];
+			this.state.projects.forEach(function (project) {
+				if (project.workspace.name != 'Active') {
+					developingProjects.push(project);
+				}
+			});
+
+			this.setState({
+				projectsToShow: developingProjects
+			});
+		}
+	}, {
 		key: 'logOut',
 		value: function logOut() {
 			localStorage.setItem('authCode', '');
@@ -49044,12 +49082,18 @@ var App = function (_React$Component) {
 		value: function render() {
 			var _this2 = this;
 
-			var projectList = this.state.projects.length === 0 ? _react2.default.createElement(
+			var projectList = this.state.projectsToShow.length === 0 ? _react2.default.createElement(
 				'p',
 				null,
 				'Loading...'
-			) : this.state.projects.map(function (project) {
+			) : this.state.projectsToShow.map(function (project) {
 				return _react2.default.createElement(_ProjectSummary2.default, { handleClick: _this2.handleClick, key: project.id, project: project });
+			});
+
+			var active = 0;
+			var developing = 0;
+			this.state.projects.forEach(function (project) {
+				project.workspace.name == 'Active' ? active += 1 : developing += 1;
 			});
 
 			return _react2.default.createElement(
@@ -49068,13 +49112,17 @@ var App = function (_React$Component) {
 						{ className: 'navright' },
 						_react2.default.createElement(
 							'li',
-							null,
-							'Active'
+							{ onClick: this.showActive },
+							'Active (',
+							active,
+							')'
 						),
 						_react2.default.createElement(
 							'li',
-							null,
-							'Developing'
+							{ onClick: this.showDeveloping },
+							'Developing (',
+							developing,
+							')'
 						),
 						_react2.default.createElement(
 							'li',
@@ -52205,7 +52253,7 @@ exports.default = ProjectModal;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -52227,122 +52275,137 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ProjectSummary = function (_React$Component) {
-    _inherits(ProjectSummary, _React$Component);
+  _inherits(ProjectSummary, _React$Component);
 
-    function ProjectSummary(props) {
-        _classCallCheck(this, ProjectSummary);
+  function ProjectSummary(props) {
+    _classCallCheck(this, ProjectSummary);
 
-        var _this = _possibleConstructorReturn(this, (ProjectSummary.__proto__ || Object.getPrototypeOf(ProjectSummary)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ProjectSummary.__proto__ || Object.getPrototypeOf(ProjectSummary)).call(this, props));
 
-        _this.state = {
-            tasks: []
-        };
-        return _this;
+    _this.state = {
+      tasks: []
+    };
+    return _this;
+  }
+
+  _createClass(ProjectSummary, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var that = this;
+      setTimeout(function () {
+        that.props.project.tasks.forEach(function (task) {
+          _jquery2.default.ajax({
+            url: 'https://app.asana.com/api/1.0/tasks/' + task.id,
+            type: "GET",
+            headers: {
+              "Authorization": 'Bearer ' + localStorage.getItem('accessToken')
+            },
+            success: function success(response) {
+              var newTasks = that.state.tasks.slice();
+              newTasks.push(response.data);
+              that.setState({
+                tasks: newTasks
+              });
+            }
+          });
+        });
+      }, 100);
     }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
 
-    _createClass(ProjectSummary, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            var that = this;
-            setTimeout(function () {
-                that.props.project.tasks.forEach(function (task) {
-                    _jquery2.default.ajax({
-                        url: 'https://app.asana.com/api/1.0/tasks/' + task.id,
-                        type: "GET",
-                        headers: {
-                            "Authorization": 'Bearer ' + localStorage.getItem('accessToken')
-                        },
-                        success: function success(response) {
-                            var newTasks = that.state.tasks.slice();
-                            newTasks.push(response.data);
-                            that.setState({
-                                tasks: newTasks
-                            });
-                        }
-                    });
-                });
-            }, 100);
+      var _props$project = this.props.project,
+          color = _props$project.color,
+          name = _props$project.name,
+          due_date = _props$project.due_date,
+          created_at = _props$project.created_at,
+          current_status = _props$project.current_status,
+          modified_at = _props$project.modified_at,
+          id = _props$project.id,
+          members = _props$project.members;
+
+
+      if (!color) {
+        current_status ? color = current_status.color : color = 'green';
+      }
+
+      if (current_status) {
+        var text = current_status.text;
+      } else {
+        var text = 'No update available.';
+      }
+      var renderDate = function renderDate(date) {
+        return new Date(date).toDateString();
+      };
+      // Display team members
+      var teamMembersList = members.map(function (member, i, arr) {
+        if (i === arr.length - 1) return 'and ' + member.name + '.';
+        return member.name + ', ';
+      });
+
+      var membersList = members.map(function (member) {
+        var names = member.name.split(' ');
+        var initials = '';
+        initials += names[0].split('')[0];
+        if (names[1]) {
+          initials += names[1].split('')[0];
+        } else {
+          initials += names[0].split('')[1];
         }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
+        return _react2.default.createElement(
+          'li',
+          { className: 'whitecircle' },
+          initials
+        );
+      });
 
-            var _props$project = this.props.project,
-                color = _props$project.color,
-                name = _props$project.name,
-                due_date = _props$project.due_date,
-                created_at = _props$project.created_at,
-                current_status = _props$project.current_status,
-                modified_at = _props$project.modified_at,
-                id = _props$project.id,
-                members = _props$project.members;
+      // Display tasks remaining and Completed
+      var taskcompleted = 0;
+      var taskremaining = 0;
+      this.state.tasks.forEach(function (task) {
+        task.completed ? taskcompleted += 1 : taskremaining += 1;
+      });
 
+      return _react2.default.createElement(
+        'li',
+        { className: color + ' project-summary', onClick: function onClick() {
+            return _this2.props.handleClick(_this2.props.project, taskremaining, taskcompleted);
+          } },
+        _react2.default.createElement(
+          'h2',
+          null,
+          name
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          taskremaining,
+          ' Remaining | Completed ',
+          taskcompleted
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: color + '-text membersList' },
+          membersList
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Updated: ',
+          renderDate(modified_at)
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          text
+        )
+      );
+    }
+  }]);
 
-            if (!color) {
-                current_status ? color = current_status.color : color = 'green';
-            }
-
-            if (current_status) {
-                var text = current_status.text;
-            } else {
-                var text = 'No update available.';
-            }
-            var renderDate = function renderDate(date) {
-                return new Date(date).toDateString();
-            };
-            // Display team members
-            var teamMembersList = members.map(function (member, i, arr) {
-                if (i === arr.length - 1) return 'and ' + member.name + '.';
-                return member.name + ', ';
-            });
-
-            // Display tasks remaining and Completed
-            var taskcompleted = 0;
-            var taskremaining = 0;
-            this.state.tasks.forEach(function (task) {
-                task.completed ? taskcompleted += 1 : taskremaining += 1;
-            });
-
-            return _react2.default.createElement(
-                'li',
-                { className: color + ' project-summary', onClick: function onClick() {
-                        return _this2.props.handleClick(_this2.props.project, taskremaining, taskcompleted);
-                    } },
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    name
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    taskremaining,
-                    ' Remaining | Completed ',
-                    taskcompleted
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    'Team: ',
-                    teamMembersList
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    'Updated: ',
-                    renderDate(modified_at)
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    text
-                )
-            );
-        }
-    }]);
-
-    return ProjectSummary;
+  return ProjectSummary;
 }(_react2.default.Component);
 
 exports.default = ProjectSummary;
@@ -52477,7 +52540,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navJob {\n  display: inline-block;\n  float: left; }\n\n.navright {\n  list-style-type: none;\n  font-size: 20px;\n  float: right; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n", ""]);
+exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navJob {\n  display: inline-block;\n  float: left; }\n\n.navright {\n  list-style-type: none;\n  font-size: 20px;\n  float: right; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.membersList {\n  list-style-type: none; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  padding: 10px; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.green-text {\n  color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.yellow-text {\n  color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.red-text {\n  color: red; }\n", ""]);
 
 // exports
 
