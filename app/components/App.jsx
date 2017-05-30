@@ -51,6 +51,11 @@ class App extends React.Component {
 									 var thisProject = response.data
 									 thisProject.tasks = res.data
 									 newProjects.push(thisProject)
+									 newProjects.sort(function(a,b){
+										 if (a.name < b.name) return -1;
+										 if (a.name > b.name) return 1;
+										 return 0;
+									 })
 									 that.setState({
 										 projects: newProjects
 									 })
@@ -113,9 +118,11 @@ class App extends React.Component {
 		return (
 			<div>
 			  <div className='navbar'>
-			  <ul className='navtitle'>
-					<li>Job Status Board</li>
-					<li className='logout' onClick={this.logOut}>Log out</li>
+					<h1 className='navJob'>Job Status Board</h1>
+				  <ul className='navright'>
+						<li>Active</li>
+						<li>Developing</li>
+						<li className='logout' onClick={this.logOut}>Log out</li>
 					</ul>
 					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>
 				</div>
