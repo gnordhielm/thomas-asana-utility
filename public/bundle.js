@@ -48940,7 +48940,9 @@ var App = function (_React$Component) {
 
 		_this.state = {
 			modal: null,
-			projects: []
+			projects: [],
+			taskcompleted: 0,
+			taskremaining: 0
 		};
 
 		_this.handleClick = _this.handleClick.bind(_this);
@@ -49017,9 +49019,11 @@ var App = function (_React$Component) {
 
 	}, {
 		key: 'handleClick',
-		value: function handleClick(project) {
+		value: function handleClick(project, remaining, completed) {
 			this.setState({
-				modal: project
+				modal: project,
+				taskremaining: remaining,
+				taskcompleted: completed
 			});
 		}
 	}, {
@@ -49063,7 +49067,7 @@ var App = function (_React$Component) {
 							'Log out'
 						)
 					),
-					_react2.default.createElement(_ProjectModal2.default, { handleClick: this.handleClick, project: this.state.modal })
+					_react2.default.createElement(_ProjectModal2.default, { handleClick: this.handleClick, taskremaining: this.state.taskremaining, taskcompleted: this.state.taskcompleted, project: this.state.modal })
 				),
 				_react2.default.createElement(
 					'ul',
@@ -52142,7 +52146,9 @@ var ProjectModal = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            'Remaining | Completed'
+                            this.props.taskremaining,
+                            ' Remaining | Completed ',
+                            this.props.taskcompleted
                         ),
                         _react2.default.createElement(
                             'p',
@@ -52286,7 +52292,7 @@ var ProjectSummary = function (_React$Component) {
             return _react2.default.createElement(
                 'li',
                 { className: color + ' project-summary', onClick: function onClick() {
-                        return _this2.props.handleClick(_this2.props.project);
+                        return _this2.props.handleClick(_this2.props.project, taskremaining, taskcompleted);
                     } },
                 _react2.default.createElement(
                     'h2',

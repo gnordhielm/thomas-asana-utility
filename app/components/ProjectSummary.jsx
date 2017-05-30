@@ -72,7 +72,7 @@ class ProjectSummary extends React.Component {
 
 
         return (
-            <li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project)}>
+            <li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project, taskremaining, taskcompleted)}>
                 <h2>{name}</h2>
                 <p>{taskremaining} Remaining | Completed {taskcompleted}
                 </p>

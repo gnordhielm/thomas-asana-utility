@@ -52,7 +52,7 @@ class ProjectModal extends React.Component {
                     <div className='left'>
                         <h2>{name}</h2>
                         <p>{workspace}</p>
-                        <p>Remaining | Completed</p>
+                        <p>{this.props.taskremaining} Remaining | Completed {this.props.taskcompleted}</p>
                         <p>Team: {teamMembersList}</p>
                     </div>
                     <div className='right'>

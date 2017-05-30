@@ -14,7 +14,9 @@ class App extends React.Component {
 
 		this.state = {
 			modal: null,
-			projects: []
+			projects: [],
+			taskcompleted: 0,
+			taskremaining: 0
 		}
 
 		this.handleClick = this.handleClick.bind(this)
@@ -86,9 +88,11 @@ class App extends React.Component {
 	// 		console.log(currentProjects)
 	// 	}, 3000)
 	// }
-	handleClick(project) {
+	handleClick(project, remaining, completed) {
 		this.setState({
-			modal: project
+			modal: project,
+			taskremaining: remaining,
+			taskcompleted: completed
 		})
 	}
 	logOut(){
@@ -113,7 +117,7 @@ class App extends React.Component {
 					<li>Job Status Board</li>
 					<li className='logout' onClick={this.logOut}>Log out</li>
 					</ul>
-					<ProjectModal handleClick={this.handleClick} project={this.state.modal}/>
+					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>
 				</div>
 
 				<ul>
