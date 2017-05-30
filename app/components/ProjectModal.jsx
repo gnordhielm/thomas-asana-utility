@@ -42,7 +42,22 @@ class ProjectModal extends React.Component {
             return `${member.name}, `
         })
 
-        var workspace = workspace.name;
+        // Display team members
+            var membersList = members.map((member) => {
+              var names = member.name.split(' ')
+              var initials = ''
+              initials += names[0].split('')[0]
+              if (names[1]) {
+                initials += names[1].split('')[0]
+              } else {
+                initials += names[0].split('')[1]
+              }
+              return (<li className='whitecircle' key={member.id}>
+                        {initials}
+                      </li>)
+            })
+
+            var workspace = workspace.name;
 
         return (
             <div className='modal-bg'>
@@ -51,9 +66,8 @@ class ProjectModal extends React.Component {
 
                     <div className='left'>
                         <h2>{name}</h2>
-                        <p>{workspace}</p>
                         <p>{this.props.taskremaining} Remaining | Completed {this.props.taskcompleted}</p>
-                        <p>Team: {teamMembersList}</p>
+                        <ul className={`${color}-text membersList`}>{membersList}</ul>
                     </div>
                     <div className='right'>
 

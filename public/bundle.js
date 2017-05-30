@@ -52190,6 +52190,23 @@ var ProjectModal = function (_React$Component) {
                 return member.name + ', ';
             });
 
+            // Display team members
+            var membersList = members.map(function (member) {
+                var names = member.name.split(' ');
+                var initials = '';
+                initials += names[0].split('')[0];
+                if (names[1]) {
+                    initials += names[1].split('')[0];
+                } else {
+                    initials += names[0].split('')[1];
+                }
+                return _react2.default.createElement(
+                    'li',
+                    { className: 'whitecircle', key: member.id },
+                    initials
+                );
+            });
+
             var workspace = workspace.name;
 
             return _react2.default.createElement(
@@ -52216,20 +52233,14 @@ var ProjectModal = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            workspace
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
                             this.props.taskremaining,
                             ' Remaining | Completed ',
                             this.props.taskcompleted
                         ),
                         _react2.default.createElement(
-                            'p',
-                            null,
-                            'Team: ',
-                            teamMembersList
+                            'ul',
+                            { className: color + '-text membersList' },
+                            membersList
                         )
                     ),
                     _react2.default.createElement(
