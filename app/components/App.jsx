@@ -24,8 +24,7 @@ class App extends React.Component {
 
 		this.handleClick = this.handleClick.bind(this)
 		this.componentWillMount = this.componentWillMount.bind(this)
-		this.showActive = this.showActive.bind(this)
-		this.showDeveloping = this.showDeveloping.bind(this)
+		this.changeDisplay = this.changeDisplay.bind(this)
 
 	}
 	componentWillMount(){
@@ -112,29 +111,16 @@ class App extends React.Component {
 			taskcompleted: completed
 		})
 	}
-	showActive() {
+	changeDisplay(category) {
 		var activeProjects = []
 		this.state.projects.forEach((project) => {
-			if (project.workspace.name == 'Active') {
+			if (project.workspace.name == category) {
 				activeProjects.push(project)
 			}
 		})
 
 		this.setState({
 			projectsToShow: activeProjects
-		})
-	}
-
-	showDeveloping() {
-		var developingProjects = []
-		this.state.projects.forEach((project) => {
-			if (project.workspace.name != 'Active') {
-				developingProjects.push(project)
-			}
-		})
-
-		this.setState({
-			projectsToShow: developingProjects
 		})
 	}
 	logOut(){
@@ -145,25 +131,59 @@ class App extends React.Component {
 	}
 	render() {
 
+		var workspaces = [];
+		var allProjects = this.state.projects.slice()
+		allProjects.forEach((project) => {
+			console.log(project.workspace.name)
+			var duplicate = workspaces.filter((workspace) => {
+				if (workspace.name == project.workspace.name) {
+					return workspace
+				}
+			})
+			console.log('Duplicate:')
+			console.log(duplicate)
+			if (duplicate.length == 0) {
+				workspaces.push({
+					name: project.workspace.name,
+					count: 1
+				})
+			} else {
+				workspaces.map((workspace) => {
+					if (workspace.name == duplicate[0].name) {
+						workspace.count += 1
+					}
+				})
+			}
+			console.log(workspaces)
+		})
+
+		workspaces.sort(function(a,b){
+			if (a.name < b.name) return -1;
+			if (a.name > b.name) return 1;
+			return 0;
+		})
+
+		var workspaceList = workspaces.map((workspace) => {
+			var space = workspace.name
+    	return (
+        <li onClick={() => this.changeDisplay(space)}>
+          {space} ({workspace.count})
+        </li>
+      )
+    })
+
 		var projectList = this.state.projectsToShow.length === 0
 				? <p>Loading...</p>
 				: this.state.projectsToShow.map((project) => {
 					return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
 				})
 
-		var active = 0;
-		var developing = 0;
-		this.state.projects.forEach((project) => {
-			project.workspace.name == 'Active' ? active += 1 : developing += 1;
-		})
-
 		return (
 			<div>
 			  <div className='navbar'>
 					<h1 className='navJob'>Job Status Board</h1>
 				  <ul className='navright'>
-						<li onClick={this.showActive}>Active ({active})</li>
-						<li onClick={this.showDeveloping}>Developing ({developing})</li>
+						{workspaceList}
 						<li className='logout' onClick={this.logOut}>Log out</li>
 					</ul>
 					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>

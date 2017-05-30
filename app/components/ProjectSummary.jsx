@@ -72,7 +72,7 @@ class ProjectSummary extends React.Component {
           } else {
             initials += names[0].split('')[1]
           }
-          return (<li className='whitecircle'>
+          return (<li className='whitecircle' key={member.id}>
                     {initials}
                   </li>)
         })
@@ -83,6 +83,8 @@ class ProjectSummary extends React.Component {
         this.state.tasks.forEach((task) => {
           task.completed ? taskcompleted += 1 : taskremaining += 1
         })
+
+
 
 
         return (

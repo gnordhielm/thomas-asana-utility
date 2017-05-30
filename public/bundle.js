@@ -48948,8 +48948,7 @@ var App = function (_React$Component) {
 
 		_this.handleClick = _this.handleClick.bind(_this);
 		_this.componentWillMount = _this.componentWillMount.bind(_this);
-		_this.showActive = _this.showActive.bind(_this);
-		_this.showDeveloping = _this.showDeveloping.bind(_this);
+		_this.changeDisplay = _this.changeDisplay.bind(_this);
 
 		return _this;
 	}
@@ -49042,31 +49041,17 @@ var App = function (_React$Component) {
 			});
 		}
 	}, {
-		key: 'showActive',
-		value: function showActive() {
+		key: 'changeDisplay',
+		value: function changeDisplay(category) {
 			var activeProjects = [];
 			this.state.projects.forEach(function (project) {
-				if (project.workspace.name == 'Active') {
+				if (project.workspace.name == category) {
 					activeProjects.push(project);
 				}
 			});
 
 			this.setState({
 				projectsToShow: activeProjects
-			});
-		}
-	}, {
-		key: 'showDeveloping',
-		value: function showDeveloping() {
-			var developingProjects = [];
-			this.state.projects.forEach(function (project) {
-				if (project.workspace.name != 'Active') {
-					developingProjects.push(project);
-				}
-			});
-
-			this.setState({
-				projectsToShow: developingProjects
 			});
 		}
 	}, {
@@ -49082,18 +49067,58 @@ var App = function (_React$Component) {
 		value: function render() {
 			var _this2 = this;
 
+			var workspaces = [];
+			var allProjects = this.state.projects.slice();
+			allProjects.forEach(function (project) {
+				console.log(project.workspace.name);
+				var duplicate = workspaces.filter(function (workspace) {
+					if (workspace.name == project.workspace.name) {
+						return workspace;
+					}
+				});
+				console.log('Duplicate:');
+				console.log(duplicate);
+				if (duplicate.length == 0) {
+					workspaces.push({
+						name: project.workspace.name,
+						count: 1
+					});
+				} else {
+					workspaces.map(function (workspace) {
+						if (workspace.name == duplicate[0].name) {
+							workspace.count += 1;
+						}
+					});
+				}
+				console.log(workspaces);
+			});
+
+			workspaces.sort(function (a, b) {
+				if (a.name < b.name) return -1;
+				if (a.name > b.name) return 1;
+				return 0;
+			});
+
+			var workspaceList = workspaces.map(function (workspace) {
+				var space = workspace.name;
+				return _react2.default.createElement(
+					'li',
+					{ onClick: function onClick() {
+							return _this2.changeDisplay(space);
+						} },
+					space,
+					' (',
+					workspace.count,
+					')'
+				);
+			});
+
 			var projectList = this.state.projectsToShow.length === 0 ? _react2.default.createElement(
 				'p',
 				null,
 				'Loading...'
 			) : this.state.projectsToShow.map(function (project) {
 				return _react2.default.createElement(_ProjectSummary2.default, { handleClick: _this2.handleClick, key: project.id, project: project });
-			});
-
-			var active = 0;
-			var developing = 0;
-			this.state.projects.forEach(function (project) {
-				project.workspace.name == 'Active' ? active += 1 : developing += 1;
 			});
 
 			return _react2.default.createElement(
@@ -49110,20 +49135,7 @@ var App = function (_React$Component) {
 					_react2.default.createElement(
 						'ul',
 						{ className: 'navright' },
-						_react2.default.createElement(
-							'li',
-							{ onClick: this.showActive },
-							'Active (',
-							active,
-							')'
-						),
-						_react2.default.createElement(
-							'li',
-							{ onClick: this.showDeveloping },
-							'Developing (',
-							developing,
-							')'
-						),
+						workspaceList,
 						_react2.default.createElement(
 							'li',
 							{ className: 'logout', onClick: this.logOut },
@@ -52356,7 +52368,7 @@ var ProjectSummary = function (_React$Component) {
         }
         return _react2.default.createElement(
           'li',
-          { className: 'whitecircle' },
+          { className: 'whitecircle', key: member.id },
           initials
         );
       });
