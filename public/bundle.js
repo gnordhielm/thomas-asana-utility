@@ -48991,7 +48991,7 @@ var App = function (_React$Component) {
 											});
 
 											var activeProjects = that.state.projectsToShow.slice();
-											if (thisProject.workspace.name == 'Active') {
+											if (thisProject.team.name == 'Active') {
 												activeProjects.push(thisProject);
 											}
 											that.setState({
@@ -49007,7 +49007,7 @@ var App = function (_React$Component) {
 					}
 
 				});
-			}, 1500);
+			}, 200);
 		}
 		// componentDidMount() {
 		// 	var that = this
@@ -49045,7 +49045,7 @@ var App = function (_React$Component) {
 		value: function changeDisplay(category) {
 			var activeProjects = [];
 			this.state.projects.forEach(function (project) {
-				if (project.workspace.name == category) {
+				if (project.team.name == category) {
 					activeProjects.push(project);
 				}
 			});
@@ -49067,40 +49067,40 @@ var App = function (_React$Component) {
 		value: function render() {
 			var _this2 = this;
 
-			var workspaces = [];
+			var teams = [];
 			var allProjects = this.state.projects.slice();
 			allProjects.forEach(function (project) {
-				console.log(project.workspace.name);
-				var duplicate = workspaces.filter(function (workspace) {
-					if (workspace.name == project.workspace.name) {
-						return workspace;
+				console.log(project.team.name);
+				var duplicate = teams.filter(function (team) {
+					if (team.name == project.team.name) {
+						return team;
 					}
 				});
 				console.log('Duplicate:');
 				console.log(duplicate);
 				if (duplicate.length == 0) {
-					workspaces.push({
-						name: project.workspace.name,
+					teams.push({
+						name: project.team.name,
 						count: 1
 					});
 				} else {
-					workspaces.map(function (workspace) {
-						if (workspace.name == duplicate[0].name) {
-							workspace.count += 1;
+					teams.map(function (team) {
+						if (team.name == duplicate[0].name) {
+							team.count += 1;
 						}
 					});
 				}
-				console.log(workspaces);
+				console.log(teams);
 			});
 
-			workspaces.sort(function (a, b) {
+			teams.sort(function (a, b) {
 				if (a.name < b.name) return -1;
 				if (a.name > b.name) return 1;
 				return 0;
 			});
 
-			var workspaceList = workspaces.map(function (workspace) {
-				var space = workspace.name;
+			var teamList = teams.map(function (team) {
+				var space = team.name;
 				return _react2.default.createElement(
 					'li',
 					{ onClick: function onClick() {
@@ -49108,7 +49108,7 @@ var App = function (_React$Component) {
 						} },
 					space,
 					' (',
-					workspace.count,
+					team.count,
 					')'
 				);
 			});
@@ -49135,7 +49135,7 @@ var App = function (_React$Component) {
 					_react2.default.createElement(
 						'ul',
 						{ className: 'navright' },
-						workspaceList,
+						teamList,
 						_react2.default.createElement(
 							'li',
 							{ className: 'logout', onClick: this.logOut },
@@ -52172,7 +52172,11 @@ var ProjectModal = function (_React$Component) {
 
 
             if (!color) {
-                current_status ? color = current_status.color : color = 'green';
+                current_status ? color = current_status.color : color = 'default';
+            }
+
+            if (color == null) {
+                color = 'default';
             }
 
             if (current_status) {
@@ -52351,7 +52355,11 @@ var ProjectSummary = function (_React$Component) {
 
 
       if (!color) {
-        current_status ? color = current_status.color : color = 'green';
+        current_status ? color = current_status.color : color = 'default';
+      }
+
+      if (color == null) {
+        color = 'default';
       }
 
       if (current_status) {
@@ -52391,6 +52399,7 @@ var ProjectSummary = function (_React$Component) {
         task.completed ? taskcompleted += 1 : taskremaining += 1;
       });
 
+      // Displayed and repeated
       return _react2.default.createElement(
         'li',
         { className: color + ' project-summary', onClick: function onClick() {
@@ -52403,7 +52412,7 @@ var ProjectSummary = function (_React$Component) {
         ),
         _react2.default.createElement(
           'p',
-          null,
+          { className: 'taskline' },
           taskremaining,
           ' Remaining | Completed ',
           taskcompleted
@@ -52421,7 +52430,7 @@ var ProjectSummary = function (_React$Component) {
         ),
         _react2.default.createElement(
           'p',
-          null,
+          { className: 'project-text' },
           text
         )
       );
@@ -52563,7 +52572,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navJob {\n  display: inline-block;\n  float: left; }\n\n.navright {\n  list-style-type: none;\n  font-size: 20px;\n  float: right; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.green {\n  background-color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.project-summary {\n  list-style-type: none;\n  width: 200px;\n  min-height: 250px;\n  max-height: 250px;\n  border: 1px solid #000;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.membersList {\n  list-style-type: none; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  padding: 10px; }\n\n.green {\n  background-color: #2ae0a0; }\n\n.green-text {\n  color: #2ae0a0; }\n\n.yellow {\n  background-color: #f7a902; }\n\n.yellow-text {\n  color: #f7a902; }\n\n.red {\n  background-color: red; }\n\n.red-text {\n  color: red; }\n", ""]);
+exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navJob {\n  display: inline-block;\n  float: left; }\n\n.navright {\n  list-style-type: none;\n  font-size: 20px;\n  float: right; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n* {\n  font-family: 'HelveticaNeueW02-75Bold', Helvetica, sans-serif; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.green {\n  background-color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.project-summary {\n  list-style-type: none;\n  width: 216px;\n  min-height: 250px;\n  max-height: 250px;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.membersList {\n  list-style-type: none; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  padding: 10px;\n  margin: 3px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.green-text {\n  color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.yellow-text {\n  color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.red-text {\n  color: #e5494c; }\n\n.default {\n  background-color: #314463; }\n\n.default-text {\n  color: #314463; }\n", ""]);
 
 // exports
 

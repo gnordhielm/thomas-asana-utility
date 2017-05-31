@@ -63,7 +63,7 @@ class App extends React.Component {
 									 })
 
 								 		var activeProjects = that.state.projectsToShow.slice()
-										if (thisProject.workspace.name == 'Active') {
+										if (thisProject.team.name == 'Active') {
 								 				activeProjects.push(thisProject)
 								 			}
 									 that.setState({
@@ -81,7 +81,7 @@ class App extends React.Component {
       }
 
      })
-		}, 1500)
+	 }, 200)
 	}
 	// componentDidMount() {
 	// 	var that = this
@@ -111,10 +111,11 @@ class App extends React.Component {
 			taskcompleted: completed
 		})
 	}
+
 	changeDisplay(category) {
 		var activeProjects = []
 		this.state.projects.forEach((project) => {
-			if (project.workspace.name == category) {
+			if (project.team.name == category) {
 				activeProjects.push(project)
 			}
 		})
@@ -131,43 +132,43 @@ class App extends React.Component {
 	}
 	render() {
 
-		var workspaces = [];
+		var teams = [];
 		var allProjects = this.state.projects.slice()
 		allProjects.forEach((project) => {
-			console.log(project.workspace.name)
-			var duplicate = workspaces.filter((workspace) => {
-				if (workspace.name == project.workspace.name) {
-					return workspace
+			console.log(project.team.name)
+			var duplicate = teams.filter((team) => {
+				if (team.name == project.team.name) {
+					return team
 				}
 			})
 			console.log('Duplicate:')
 			console.log(duplicate)
 			if (duplicate.length == 0) {
-				workspaces.push({
-					name: project.workspace.name,
+				teams.push({
+					name: project.team.name,
 					count: 1
 				})
 			} else {
-				workspaces.map((workspace) => {
-					if (workspace.name == duplicate[0].name) {
-						workspace.count += 1
+				teams.map((team) => {
+					if (team.name == duplicate[0].name) {
+						team.count += 1
 					}
 				})
 			}
-			console.log(workspaces)
+			console.log(teams)
 		})
 
-		workspaces.sort(function(a,b){
+		teams.sort(function(a,b){
 			if (a.name < b.name) return -1;
 			if (a.name > b.name) return 1;
 			return 0;
 		})
 
-		var workspaceList = workspaces.map((workspace) => {
-			var space = workspace.name
+		var teamList = teams.map((team) => {
+			var space = team.name
     	return (
         <li onClick={() => this.changeDisplay(space)}>
-          {space} ({workspace.count})
+          {space} ({team.count})
         </li>
       )
     })
@@ -183,7 +184,7 @@ class App extends React.Component {
 			  <div className='navbar'>
 					<h1 className='navJob'>Job Status Board</h1>
 				  <ul className='navright'>
-						{workspaceList}
+						{teamList}
 						<li className='logout' onClick={this.logOut}>Log out</li>
 					</ul>
 					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>

@@ -45,7 +45,11 @@ class ProjectSummary extends React.Component {
         if (!color) {
             current_status
                 ? color = current_status.color
-                : color = 'green'
+                : color = 'default'
+        }
+
+        if (color == null) {
+          color = 'default'
         }
 
         if (current_status) {
@@ -86,15 +90,15 @@ class ProjectSummary extends React.Component {
 
 
 
-
+// Displayed and repeated
         return (
             <li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project, taskremaining, taskcompleted)}>
                 <h2>{name}</h2>
-                <p>{taskremaining} Remaining | Completed {taskcompleted}
+                <p className='taskline'>{taskremaining} Remaining | Completed {taskcompleted}
                 </p>
                 <ul className={`${color}-text membersList`}>{membersList}</ul>
                 <p>Updated: {renderDate(modified_at)}</p>
-                <p>{text}</p>
+                <p className='project-text'>{text}</p>
             </li>
         )
     }

@@ -23,7 +23,11 @@ class ProjectModal extends React.Component {
         if (!color) {
             current_status
                 ? color = current_status.color
-                : color = 'green'
+                : color = 'default'
+        }
+
+        if (color == null) {
+          color = 'default'
         }
 
         if (current_status) {

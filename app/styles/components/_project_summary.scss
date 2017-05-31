@@ -3,10 +3,10 @@
 	// margin: 10px;
 	// padding: 20px;
   list-style-type: none;
-      width: 200px;
+      width: 216px;
       min-height: 250px;
 			max-height: 250px;
-      border: 1px solid #000;
+      // border: 1px solid #000;
       display: -moz-inline-stack;
       display: inline-block;
       vertical-align: top;
@@ -29,30 +29,39 @@
 	border-radius: 100px;
 	text-align: center;
 	padding: 10px;
+	margin: 3px;
 }
 
 // Status Colors
 
 .green {
-	background-color: #2ae0a0;
+	background-color: #44ba8f;
 }
 
 .green-text {
-	color: #2ae0a0;
+	color: #44ba8f;
 }
 
 .yellow {
-	background-color: #f7a902;
+	background-color: #f7b722;
 }
 
 .yellow-text {
-	color: #f7a902;
+	color: #f7b722;
 }
 
 .red {
-	background-color: red;
+	background-color: #e5494c;
 }
 
 .red-text {
-	color: red;
+	color: #e5494c;
+}
+
+.default {
+	background-color: #314463;
+}
+
+.default-text {
+	color: #314463;
 }
