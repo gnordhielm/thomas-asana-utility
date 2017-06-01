@@ -93,12 +93,12 @@ class ProjectSummary extends React.Component {
 // Displayed and repeated
         return (
             <li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project, taskremaining, taskcompleted)}>
-                <h2>{name}</h2>
-                <p className='taskline'>{taskremaining} Remaining | Completed {taskcompleted}
-                </p>
+                <h2 className='name'>{name}</h2>
+                <h5 className='taskline' key={this.state.tasks}>{taskremaining} Remaining | Completed {taskcompleted}
+                </h5>
                 <ul className={`${color}-text membersList`}>{membersList}</ul>
-                <p>Updated: {renderDate(modified_at)}</p>
-                <p className='project-text'>{text}</p>
+                <h3 className='updated'>{renderDate(modified_at)}</h3>
+                <h5 className='project-text'>{text}</h5>
             </li>
         )
     }

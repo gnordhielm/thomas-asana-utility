@@ -48979,16 +48979,17 @@ var App = function (_React$Component) {
 										headers: {
 											"Authorization": 'Bearer ' + localStorage.getItem('accessToken')
 										},
+
 										success: function success(res) {
 											var newProjects = that.state.projects.slice();
 											var thisProject = response.data;
 											thisProject.tasks = res.data;
 											newProjects.push(thisProject);
-											newProjects.sort(function (a, b) {
-												if (a.name < b.name) return -1;
-												if (a.name > b.name) return 1;
-												return 0;
-											});
+											//  newProjects.sort(function(a,b){
+											// 	 if (a.name < b.name) return -1;
+											// 	 if (a.name > b.name) return 1;
+											// 	 return 0;
+											//  })
 
 											var activeProjects = that.state.projectsToShow.slice();
 											if (thisProject.team.name == 'Active') {
@@ -52231,7 +52232,7 @@ var ProjectModal = function (_React$Component) {
                         { className: 'left' },
                         _react2.default.createElement(
                             'h2',
-                            null,
+                            { className: 'name' },
                             name
                         ),
                         _react2.default.createElement(
@@ -52253,7 +52254,6 @@ var ProjectModal = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            'Updated: ',
                             renderDate(modified_at)
                         ),
                         _react2.default.createElement(
@@ -52407,12 +52407,12 @@ var ProjectSummary = function (_React$Component) {
           } },
         _react2.default.createElement(
           'h2',
-          null,
+          { className: 'name' },
           name
         ),
         _react2.default.createElement(
-          'p',
-          { className: 'taskline' },
+          'h5',
+          { className: 'taskline', key: this.state.tasks },
           taskremaining,
           ' Remaining | Completed ',
           taskcompleted
@@ -52423,13 +52423,12 @@ var ProjectSummary = function (_React$Component) {
           membersList
         ),
         _react2.default.createElement(
-          'p',
-          null,
-          'Updated: ',
+          'h3',
+          { className: 'updated' },
           renderDate(modified_at)
         ),
         _react2.default.createElement(
-          'p',
+          'h5',
           { className: 'project-text' },
           text
         )
@@ -52572,7 +52571,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navJob {\n  display: inline-block;\n  float: left; }\n\n.navright {\n  list-style-type: none;\n  font-size: 20px;\n  float: right; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n* {\n  font-family: 'HelveticaNeueW02-75Bold', Helvetica, sans-serif; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.green {\n  background-color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.project-summary {\n  list-style-type: none;\n  width: 216px;\n  min-height: 250px;\n  max-height: 250px;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.membersList {\n  list-style-type: none; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  padding: 10px;\n  margin: 3px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.green-text {\n  color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.yellow-text {\n  color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.red-text {\n  color: #e5494c; }\n\n.default {\n  background-color: #314463; }\n\n.default-text {\n  color: #314463; }\n", ""]);
+exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navJob {\n  display: inline-block;\n  float: left; }\n\n.navright {\n  list-style-type: none;\n  font-size: 20px;\n  float: right; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n* {\n  font-family: 'HelveticaNeueW02-75Bold', Helvetica, sans-serif; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.name {\n  margin-bottom: -15px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.project-summary {\n  list-style-type: none;\n  width: 221px;\n  min-height: 250px;\n  max-height: 250px;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px; }\n\n.membersList {\n  list-style-type: none; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  padding: 10px;\n  margin: 3px; }\n\n.name {\n  margin-bottom: -15px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.green-text {\n  color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.yellow-text {\n  color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.red-text {\n  color: #e5494c; }\n\n.default {\n  background-color: #314463; }\n\n.default-text {\n  color: #314463; }\n", ""]);
 
 // exports
 

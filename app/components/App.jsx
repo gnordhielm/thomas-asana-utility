@@ -51,16 +51,17 @@ class App extends React.Component {
 								 headers: {
 									 "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
 								 },
+
 								 success: function(res) {
 									 var newProjects = that.state.projects.slice()
 									 var thisProject = response.data
 									 thisProject.tasks = res.data
 									 newProjects.push(thisProject)
-									 newProjects.sort(function(a,b){
-										 if (a.name < b.name) return -1;
-										 if (a.name > b.name) return 1;
-										 return 0;
-									 })
+									//  newProjects.sort(function(a,b){
+									// 	 if (a.name < b.name) return -1;
+									// 	 if (a.name > b.name) return 1;
+									// 	 return 0;
+									//  })
 
 								 		var activeProjects = that.state.projectsToShow.slice()
 										if (thisProject.team.name == 'Active') {

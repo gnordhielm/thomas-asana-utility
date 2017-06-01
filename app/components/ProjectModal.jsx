@@ -69,13 +69,13 @@ class ProjectModal extends React.Component {
                 <p className='close-button' onClick={() => this.props.handleClick(null)}>&#10005;</p>
 
                     <div className='left'>
-                        <h2>{name}</h2>
+                        <h2 className='name'>{name}</h2>
                         <p>{this.props.taskremaining} Remaining | Completed {this.props.taskcompleted}</p>
                         <ul className={`${color}-text membersList`}>{membersList}</ul>
                     </div>
                     <div className='right'>
 
-                        <p>Updated: {renderDate(modified_at)}</p>
+                        <p>{renderDate(modified_at)}</p>
                         <p>{text}</p>
                     </div>
 
