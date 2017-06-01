@@ -28,7 +28,7 @@ class ProjectSummary extends React.Component {
             }
           })
         })
-      }, 100)
+      }, 0)
     }
     render() {
         var {

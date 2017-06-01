@@ -82,7 +82,7 @@ class App extends React.Component {
       }
 
      })
-	 }, 200)
+	 }, 0)
 	}
 	// componentDidMount() {
 	// 	var that = this
@@ -136,14 +136,12 @@ class App extends React.Component {
 		var teams = [];
 		var allProjects = this.state.projects.slice()
 		allProjects.forEach((project) => {
-			console.log(project.team.name)
 			var duplicate = teams.filter((team) => {
 				if (team.name == project.team.name) {
 					return team
 				}
 			})
-			console.log('Duplicate:')
-			console.log(duplicate)
+
 			if (duplicate.length == 0) {
 				teams.push({
 					name: project.team.name,
@@ -156,7 +154,6 @@ class App extends React.Component {
 					}
 				})
 			}
-			console.log(teams)
 		})
 
 		teams.sort(function(a,b){

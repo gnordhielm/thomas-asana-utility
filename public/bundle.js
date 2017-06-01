@@ -49008,7 +49008,7 @@ var App = function (_React$Component) {
 					}
 
 				});
-			}, 200);
+			}, 0);
 		}
 		// componentDidMount() {
 		// 	var that = this
@@ -49071,14 +49071,12 @@ var App = function (_React$Component) {
 			var teams = [];
 			var allProjects = this.state.projects.slice();
 			allProjects.forEach(function (project) {
-				console.log(project.team.name);
 				var duplicate = teams.filter(function (team) {
 					if (team.name == project.team.name) {
 						return team;
 					}
 				});
-				console.log('Duplicate:');
-				console.log(duplicate);
+
 				if (duplicate.length == 0) {
 					teams.push({
 						name: project.team.name,
@@ -49091,7 +49089,6 @@ var App = function (_React$Component) {
 						}
 					});
 				}
-				console.log(teams);
 			});
 
 			teams.sort(function (a, b) {
@@ -52336,7 +52333,7 @@ var ProjectSummary = function (_React$Component) {
             }
           });
         });
-      }, 100);
+      }, 0);
     }
   }, {
     key: 'render',
