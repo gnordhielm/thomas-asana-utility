@@ -37,7 +37,6 @@ class App extends React.Component {
        type: "GET",
        headers: { "Authorization": `Bearer ${localStorage.getItem('accessToken')}`},
        success: function(response) {
-
        	response.data.forEach((item) => {
        		$.ajax({
 			       url: `https://app.asana.com/api/1.0/projects/${item.id}`,
@@ -162,10 +161,10 @@ class App extends React.Component {
 			return 0;
 		})
 
-		var teamList = teams.map((team) => {
+		var teamList = teams.map((team, idx) => {
 			var space = team.name
     	return (
-        <li onClick={() => this.changeDisplay(space)}>
+        <li key={idx} onClick={() => this.changeDisplay(space)}>
           {space} ({team.count})
         </li>
       )
@@ -173,8 +172,8 @@ class App extends React.Component {
 
 		var projectList = this.state.projectsToShow.length === 0
 				? <p>Loading...</p>
-				: this.state.projectsToShow.map((project) => {
-					return <ProjectSummary handleClick={this.handleClick} key={project.id} project={project} />
+				: this.state.projectsToShow.map((project, idx) => {
+					return <ProjectSummary key={idx} handleClick={this.handleClick} key={project.id} project={project} />
 				})
 
 		return (

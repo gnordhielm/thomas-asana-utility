@@ -48924,6 +48924,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -48965,7 +48967,6 @@ var App = function (_React$Component) {
 					type: "GET",
 					headers: { "Authorization": 'Bearer ' + localStorage.getItem('accessToken') },
 					success: function success(response) {
-
 						response.data.forEach(function (item) {
 							_jquery2.default.ajax({
 								url: 'https://app.asana.com/api/1.0/projects/' + item.id,
@@ -49097,11 +49098,11 @@ var App = function (_React$Component) {
 				return 0;
 			});
 
-			var teamList = teams.map(function (team) {
+			var teamList = teams.map(function (team, idx) {
 				var space = team.name;
 				return _react2.default.createElement(
 					'li',
-					{ onClick: function onClick() {
+					{ key: idx, onClick: function onClick() {
 							return _this2.changeDisplay(space);
 						} },
 					space,
@@ -49115,8 +49116,10 @@ var App = function (_React$Component) {
 				'p',
 				null,
 				'Loading...'
-			) : this.state.projectsToShow.map(function (project) {
-				return _react2.default.createElement(_ProjectSummary2.default, { handleClick: _this2.handleClick, key: project.id, project: project });
+			) : this.state.projectsToShow.map(function (project, idx) {
+				var _React$createElement;
+
+				return _react2.default.createElement(_ProjectSummary2.default, (_React$createElement = { key: idx, handleClick: _this2.handleClick }, _defineProperty(_React$createElement, 'key', project.id), _defineProperty(_React$createElement, 'project', project), _React$createElement));
 			});
 
 			return _react2.default.createElement(
@@ -65951,9 +65954,7 @@ var authCheck = function authCheck() {
 	console.log('authcheck');
 	// unauthenticated - coming to redirect uri
 	if (window.location.search) {
-		console.log('got search');
 
-		console.log('set authcode');
 		// store the code in localstorage
 		var authCode = decodeURIComponent(window.location.search.split('?code=')[1].split('&state')[0]);
 		localStorage.setItem('authCode', authCode);

@@ -16,9 +16,7 @@ var authCheck = () => {
 	console.log('authcheck')
 	// unauthenticated - coming to redirect uri
 	if (window.location.search) {
-		console.log('got search')
-
-		console.log('set authcode')
+		
 		// store the code in localstorage
 		var authCode = decodeURIComponent(window.location.search.split('?code=')[1].split('&state')[0])
 		localStorage.setItem('authCode', authCode)
