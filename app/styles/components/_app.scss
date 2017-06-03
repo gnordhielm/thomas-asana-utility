@@ -26,6 +26,11 @@
   float: left;
 }
 
+ul {
+  text-align: center;
+  padding-left: 0;
+}
+
 .navright {
   list-style-type: none;
   font-size: 20px;
@@ -35,4 +40,6 @@
     display: inline-block;
     margin: 0 5px;
   }
+
+
 }
