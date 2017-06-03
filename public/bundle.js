@@ -52330,9 +52330,11 @@ var ProjectSummary = function (_React$Component) {
             success: function success(response) {
               var newTasks = that.state.tasks.slice();
               newTasks.push(response.data);
-              that.setState({
-                tasks: newTasks
-              });
+              if (that.refs.myRef) {
+                that.setState({
+                  tasks: newTasks
+                });
+              }
             }
           });
         });
@@ -52402,7 +52404,7 @@ var ProjectSummary = function (_React$Component) {
       // Displayed and repeated
       return _react2.default.createElement(
         'li',
-        { className: color + ' project-summary', onClick: function onClick() {
+        { ref: 'myRef', className: color + ' project-summary', onClick: function onClick() {
             return _this2.props.handleClick(_this2.props.project, taskremaining, taskcompleted);
           } },
         _react2.default.createElement(

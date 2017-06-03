@@ -22,9 +22,11 @@ class ProjectSummary extends React.Component {
             success: function(response) {
               var newTasks = that.state.tasks.slice()
               newTasks.push(response.data)
+              if (that.refs.myRef) {
               that.setState({
                 tasks: newTasks
               })
+              }
             }
           })
         })
@@ -92,7 +94,7 @@ class ProjectSummary extends React.Component {
 
 // Displayed and repeated
         return (
-            <li className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project, taskremaining, taskcompleted)}>
+            <li ref='myRef' className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project, taskremaining, taskcompleted)}>
                 <h2 className='name'>{name}</h2>
                 <h5 className='taskline' key={this.state.tasks}>{taskremaining} Remaining | Completed {taskcompleted}
                 </h5>
