@@ -68,11 +68,7 @@ module.exports = {
       AppStyles: path.resolve(__dirname, 'app/styles/app.scss')
     }
   },
-  devserver: {
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    }
-  }
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
