@@ -25895,14 +25895,13 @@ module.exports = setInnerHTML;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var Asana = __webpack_require__(162);
 
 // Configuration - move out to .env file
-var CLIENT_ID = exports.CLIENT_ID = {"NODE_ENV":undefined,"API_KEY":undefined}.CLIENT_ID;
-var CLIENT_SECRET = exports.CLIENT_SECRET = {"NODE_ENV":undefined,"API_KEY":undefined}.CLIENT_SECRET;
-var REDIRECT_URI = exports.REDIRECT_URI = {"NODE_ENV":undefined,"API_KEY":undefined}.REDIRECT_URI;
-var AUTH_ENDPOINT = exports.AUTH_ENDPOINT = {"NODE_ENV":undefined,"API_KEY":undefined}.AUTH_ENDPOINT;
+var CLIENT_ID = exports.CLIENT_ID = '355950334759642';
+var CLIENT_SECRET = exports.CLIENT_SECRET = 'ed08204f8acc5052ccbc86f81eeac83c';
+var REDIRECT_URI = exports.REDIRECT_URI = 'https://aqueous-crag-19153.herokuapp.com/projects';
+var AUTH_ENDPOINT = exports.AUTH_ENDPOINT = 'https://app.asana.com/-/oauth_authorize?response_type=code&client_id=' + 355950334759642 + '&redirect_uri=https%3A%2F%2Faqueous-crag-19153.herokuapp.com%2Fprojects';
 
 /***/ }),
 /* 59 */
