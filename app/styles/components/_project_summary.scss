@@ -17,10 +17,12 @@
       zoom: 1;
       *display: inline;
       _height: 250px;
+			text-align: left;
 }
 
 .membersList {
 	list-style-type: none;
+	text-align: left;
 
 }
 
@@ -28,7 +30,7 @@
 	display: inline-block;
 	background-color: white;
 	border-radius: 100px;
-	text-align: center;
+	text-align: left;
 	padding: 10px;
 	margin: 3px;
 }
