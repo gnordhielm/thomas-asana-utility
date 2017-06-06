@@ -1,18 +1,71 @@
 
 .project-summary {
-	margin: 10px;
-	padding: 20px;
-	list-style-type: none;
+  list-style-type: none;
+      width: 221px;
+      min-height: 250px;
+			max-height: 250px;
+      display: -moz-inline-stack;
+      display: inline-block;
+      vertical-align: top;
+			color: white;
+      margin: 1px;
+			padding: 5px;
+			padding-left: 10px;
+      zoom: 1;
+      *display: inline;
+      _height: 250px;
+			text-align: left;
 }
+
+.membersList {
+	list-style-type: none;
+	text-align: left;
+
+}
+
+.whitecircle {
+	display: inline-block;
+	background-color: white;
+	border-radius: 100px;
+	text-align: left;
+	padding: 10px;
+	margin: 3px;
+}
+
+.name {
+	margin-bottom: -15px;
+}
+
+// Status Colors
 
 .green {
-	border: 3px solid green;
+	background-color: #44ba8f;
 }
 
-.orange {
-	border: 3px solid orange;
+.green-text {
+	color: #44ba8f;
+}
+
+.yellow {
+	background-color: #f7b722;
+}
+
+.yellow-text {
+	color: #f7b722;
 }
 
 .red {
-	border: 3px solid red;
+	background-color: #e5494c;
+}
+
+.red-text {
+	color: #e5494c;
+}
+
+.default {
+	background-color: #314463;
+}
+
+.default-text {
+	color: #314463;
 }

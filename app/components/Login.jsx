@@ -7,10 +7,10 @@ class Login extends React.Component {
 	}
 	render() {
 		return (
-			<div>
-				<h2>Please log in.</h2>
+			<div className='login'>
+				<h1>Asana Project Heads Up</h1>
 				<a href={Asana.AUTH_ENDPOINT}>
-					<button>Log in</button>
+					<button className='login-button'>Log in</button>
 				</a>
 			</div>
 		)

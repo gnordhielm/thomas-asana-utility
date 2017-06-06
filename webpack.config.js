@@ -9,10 +9,11 @@ try {
 } catch (err) {
 
 }
+
 // module.exports = {
 //   entry: [
 //     './app/app.jsx'
-//   ], 
+//   ],
 //   output: {
 //     path: __dirname,
 //     filename: './public/bundle.js'
@@ -30,9 +31,9 @@ try {
 //   module: {
 //     // loaders tell webpack what to do with odd files
 //     loaders: [
-//       { 
-//         test: /\.json$/, 
-//         loader: 'json' 
+//       {
+//         test: /\.json$/,
+//         loader: 'json'
 //       },
 //       {
 //         loader: 'babel-loader',
@@ -67,6 +68,7 @@ module.exports = {
       AppStyles: path.resolve(__dirname, 'app/styles/app.scss')
     }
   },
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -74,7 +76,7 @@ module.exports = {
         API_KEY: JSON.stringify(process.env.CLIENT_SECRET)
       }
     })
-  ],  
+  ],
   node: {
     readline: 'empty'
   },
@@ -91,4 +93,3 @@ module.exports = {
     ],
   },
 }
-
