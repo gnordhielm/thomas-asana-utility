@@ -48965,6 +48965,7 @@ var App = function (_React$Component) {
 					url: "https://app.asana.com/api/1.0/projects",
 					type: "GET",
 					headers: { "Authorization": 'Bearer ' + localStorage.getItem('accessToken') },
+
 					success: function success(response) {
 						response.data.forEach(function (item) {
 							_jquery2.default.ajax({
@@ -49010,28 +49011,6 @@ var App = function (_React$Component) {
 				});
 			}, 0);
 		}
-		// componentDidMount() {
-		// 	var that = this
-		// 	var currentProjects = that.state.projects.slice()
-		// 	setTimeout(() => {
-		// 		currentProjects.map((proj) => {
-		// 			return proj.tasks.map((task) => {
-		// 				return $.ajax({
-		// 					url: `https://app.asana.com/api/1.0/tasks/${task.id}`,
-		// 					type: "GET",
-		// 					headers: {
-		// 						"Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-		// 					},
-		// 					success: function(fullTask) {
-		// 						return fullTask
-		// 					}
-		// 				})
-		// 			})
-		// 		})
-		// 		console.log(currentProjects)
-		// 	}, 3000)
-		// }
-
 	}, {
 		key: 'handleClick',
 		value: function handleClick(project, remaining, completed) {
