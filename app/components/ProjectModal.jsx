@@ -64,9 +64,9 @@ class ProjectModal extends React.Component {
             var workspace = workspace.name;
 
         return (
-            <div className='modal-bg'>
+            <div className='modal-bg' onClick={() => this.props.handleClick(null)}>
                 <div className={`${color} modal`}>
-                <p className='close-button' onClick={() => this.props.handleClick(null)}>&#10005;</p>
+                <p className='close-button'></p>
 
                     <div className='left'>
                         <h2 className='name'>{name}</h2>
