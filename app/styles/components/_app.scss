@@ -1,14 +1,14 @@
 .logout {
 
-  background-color: gray;
+  // background-color: gray;
   /* Green */
   border: none;
-  color: black;
+  color: white;
   padding: 5px 15px;
   border-radius: 10px;
   text-align: center;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 16px;
   // float: right;
   // margin: -44px 15px 20px 20px;
 }
@@ -16,14 +16,17 @@
 .navbar {
     color: white;
     background-color: black;
-    height: 78px;
+    height: 121.5px;
     padding-top: 1px;
     padding-left: 15px;
 }
 
 .navJob {
-  display: inline-block;
-  float: left;
+    display: inline-block;
+    float: left;
+    font-size: 44px;
+    padding-left: 33px;
+    margin-top: 40px;
 }
 
 ul {
@@ -33,10 +36,11 @@ ul {
 
 .navright {
   list-style-type: none;
-  font-size: 20px;
+  font-size: 32px;
   float: right;
   cursor: pointer;
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-right: 33px;
 
   li {
     display: inline-block;
