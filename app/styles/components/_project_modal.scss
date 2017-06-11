@@ -30,19 +30,17 @@ right: 49px;
 top: 16px;
 }
 
-
-
 .left {
   border-right: 1px solid black;
   width: 20%;
-  height: 550px;
+  height: 1000px;
   display: inline-block;
   padding: 20px;
 }
 
 .right {
   width: 70%;
-  height: 550px;
+  height: 1000px;
   display: inline-block;
   vertical-align: top;
   padding: 20px;
@@ -66,9 +64,47 @@ top: 16px;
   }
 }
 
-.name {
-	margin-bottom: -15px;
+.modal-name {
+	// margin-bottom: -15px;
+  font-size: 60px;
 }
+
+.modal-task {
+  font-size: 21px;
+  margin-top: 550px;
+}
+
+.modal-updated {
+  font-size: 40px;
+  padding-top: 110px;
+  padding-left: 33px;
+}
+
+.modal-text {
+  font-size: 40px;
+  padding-left: 33px;
+}
+
+.modal-membersList {
+  text-align: left;
+}
+
+.whitecircle-modal {
+  display: inline-block;
+	background-color: white;
+	border-radius: 100px;
+	text-align: left;
+  font-size: 26px;
+	padding: 10px;
+	margin: 3px;
+}
+
+
+
+
+
+
+
 
 // Status Colors
 .green {
