@@ -160,10 +160,10 @@ class App extends React.Component {
 		return (
 			<div>
 			  <div className='navbar'>
-					<h1 className='navJob'>Job Status Board</h1>
+					<h1 className='navJob'>Weekly Status</h1>
 				  <ul className='navright'>
 						{teamList}
-						<li className='logout' onClick={this.logOut}>Log out</li>
+						<li className='logout' onClick={this.logOut}>Logout</li>
 					</ul>
 					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>
 				</div>
