@@ -96,7 +96,7 @@ class ProjectSummary extends React.Component {
         return (
 
             <li ref='myRef' className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project, taskremaining, taskcompleted)}>
-                <p className='name'>{name}</p>
+                <p className='summary-name'>{name}</p>
                 <p className='taskline' key={this.state.tasks}>{taskremaining} Remaining | Completed {taskcompleted}
                 </p>
                 <ul className={`${color}-text membersList`}>{membersList}</ul>
