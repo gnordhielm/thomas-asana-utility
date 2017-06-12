@@ -48950,7 +48950,6 @@ var App = function (_React$Component) {
 		_this.handleClick = _this.handleClick.bind(_this);
 		_this.componentWillMount = _this.componentWillMount.bind(_this);
 		_this.changeDisplay = _this.changeDisplay.bind(_this);
-
 		return _this;
 	}
 
@@ -48995,6 +48994,11 @@ var App = function (_React$Component) {
 											var activeProjects = that.state.projectsToShow.slice();
 											if (thisProject.team.name == 'Active') {
 												activeProjects.push(thisProject);
+												activeProjects.sort(function (a, b) {
+													if (a.name < b.name) return -1;
+													if (a.name > b.name) return 1;
+													return 0;
+												});
 											}
 											that.setState({
 												projects: newProjects,

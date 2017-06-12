@@ -20,13 +20,11 @@ class App extends React.Component {
 			projectsToShow: []
 		}
 
-
-
 		this.handleClick = this.handleClick.bind(this)
 		this.componentWillMount = this.componentWillMount.bind(this)
 		this.changeDisplay = this.changeDisplay.bind(this)
-
 	}
+
 	componentWillMount(){
 
 		var that = this
@@ -66,6 +64,11 @@ class App extends React.Component {
 								 		var activeProjects = that.state.projectsToShow.slice()
 										if (thisProject.team.name == 'Active') {
 								 				activeProjects.push(thisProject)
+												activeProjects.sort(function(a,b){
+		 										 if (a.name < b.name) return -1;
+		 										 if (a.name > b.name) return 1;
+		 										 return 0;
+		 									 })
 								 			}
 									 that.setState({
 										 projects: newProjects,
