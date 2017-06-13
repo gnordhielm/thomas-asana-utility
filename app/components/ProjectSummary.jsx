@@ -43,7 +43,7 @@ class ProjectSummary extends React.Component {
             id,
             members
         } = this.props.project
-
+// Display color
         if (!color) {
             current_status
                 ? color = current_status.color
@@ -59,6 +59,7 @@ class ProjectSummary extends React.Component {
 				} else {
 					var text = 'No update available.'
 				}
+
         var renderDate = (date) => {
             return new Date(date).toDateString()
         }
@@ -94,13 +95,14 @@ class ProjectSummary extends React.Component {
 
 // Displayed and repeated
         return (
+
             <li ref='myRef' className={`${color} project-summary`} onClick={() => this.props.handleClick(this.props.project, taskremaining, taskcompleted)}>
-                <h2 className='name'>{name}</h2>
-                <h5 className='taskline' key={this.state.tasks}>{taskremaining} Remaining | Completed {taskcompleted}
-                </h5>
+                <p className='summary-name'>{name}</p>
+                <p className='taskline' key={this.state.tasks}>{taskremaining} Remaining | Completed {taskcompleted}
+                </p>
                 <ul className={`${color}-text membersList`}>{membersList}</ul>
-                <h3 className='updated'>{renderDate(modified_at)}</h3>
-                <h5 className='project-text'>{text}</h5>
+                <p className='updated'>{renderDate(modified_at)}</p>
+                <p className='project-text'>{text}</p>
             </li>
         )
     }

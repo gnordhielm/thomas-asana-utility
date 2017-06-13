@@ -20,13 +20,11 @@ class App extends React.Component {
 			projectsToShow: []
 		}
 
-
-
 		this.handleClick = this.handleClick.bind(this)
 		this.componentWillMount = this.componentWillMount.bind(this)
 		this.changeDisplay = this.changeDisplay.bind(this)
-
 	}
+
 	componentWillMount(){
 
 		var that = this
@@ -36,6 +34,7 @@ class App extends React.Component {
        url: "https://app.asana.com/api/1.0/projects",
        type: "GET",
        headers: { "Authorization": `Bearer ${localStorage.getItem('accessToken')}`},
+
        success: function(response) {
        	response.data.forEach((item) => {
        		$.ajax({
@@ -65,6 +64,11 @@ class App extends React.Component {
 								 		var activeProjects = that.state.projectsToShow.slice()
 										if (thisProject.team.name == 'Active') {
 								 				activeProjects.push(thisProject)
+												activeProjects.sort(function(a,b){
+		 										 if (a.name < b.name) return -1;
+		 										 if (a.name > b.name) return 1;
+		 										 return 0;
+		 									 })
 								 			}
 									 that.setState({
 										 projects: newProjects,
@@ -83,27 +87,7 @@ class App extends React.Component {
      })
 	 }, 0)
 	}
-	// componentDidMount() {
-	// 	var that = this
-	// 	var currentProjects = that.state.projects.slice()
-	// 	setTimeout(() => {
-	// 		currentProjects.map((proj) => {
-	// 			return proj.tasks.map((task) => {
-	// 				return $.ajax({
-	// 					url: `https://app.asana.com/api/1.0/tasks/${task.id}`,
-	// 					type: "GET",
-	// 					headers: {
-	// 						"Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-	// 					},
-	// 					success: function(fullTask) {
-	// 						return fullTask
-	// 					}
-	// 				})
-	// 			})
-	// 		})
-	// 		console.log(currentProjects)
-	// 	}, 3000)
-	// }
+
 	handleClick(project, remaining, completed) {
 		this.setState({
 			modal: project,
@@ -171,7 +155,7 @@ class App extends React.Component {
     })
 
 		var projectList = this.state.projectsToShow.length === 0
-				? <p>Loading...</p>
+				? <p className='loading-text'>Loading...</p>
 				: this.state.projectsToShow.map((project, idx) => {
 					return <ProjectSummary key={idx} handleClick={this.handleClick} key={project.id} project={project} />
 				})
@@ -179,13 +163,14 @@ class App extends React.Component {
 		return (
 			<div>
 			  <div className='navbar'>
-					<h1 className='navJob'>Job Status Board</h1>
+					<h1 className='navJob'>Weekly Status</h1>
 				  <ul className='navright'>
 						{teamList}
-						<li className='logout' onClick={this.logOut}>Log out</li>
+						<li className='logout' onClick={this.logOut}>Logout</li>
 					</ul>
 					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>
 				</div>
+
 
 				<ul>
 					{projectList}

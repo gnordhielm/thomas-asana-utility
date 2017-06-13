@@ -1,39 +1,62 @@
 
 .project-summary {
   list-style-type: none;
-      width: 221px;
-      min-height: 250px;
-			max-height: 250px;
-      display: -moz-inline-stack;
-      display: inline-block;
-      vertical-align: top;
-			color: white;
-      margin: 1px;
-			padding: 5px;
-			padding-left: 10px;
-      zoom: 1;
-      *display: inline;
-      _height: 250px;
-			text-align: left;
+    width: 479px;
+    height: 479px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    text-align: left;
+    border: .1px solid black;
 }
 
 .membersList {
 	list-style-type: none;
 	text-align: left;
-
+  padding-left: 28px;
 }
 
 .whitecircle {
-	display: inline-block;
-	background-color: white;
-	border-radius: 100px;
-	text-align: left;
-	padding: 10px;
-	margin: 3px;
+  display: inline-block;
+  background-color: white;
+  border-radius: 100px;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px;
+  margin: 5px;
+  height: 41.56px;
+  width: 41.56px;
+  line-height: 40px;
 }
 
-.name {
-	margin-bottom: -15px;
+.summary-name {
+  margin-bottom: -15px;
+  font-size: 44px;
+  padding-left: 33px;
+  padding-right: 33px;
+}
+
+.taskline {
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-top: 10px;
+  font-size: 16px;
+}
+
+.updated {
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-top: 10px;
+  font-size: 20px;
+}
+
+.project-text {
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-top: 5px;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 // Status Colors

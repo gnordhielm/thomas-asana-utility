@@ -56,7 +56,7 @@ class ProjectModal extends React.Component {
               } else {
                 initials += names[0].split('')[1]
               }
-              return (<li className='whitecircle' key={member.id}>
+              return (<li className='whitecircle-modal' key={member.id}>
                         {initials}
                       </li>)
             })
@@ -64,19 +64,19 @@ class ProjectModal extends React.Component {
             var workspace = workspace.name;
 
         return (
-            <div className='modal-bg'>
+            <div className='modal-bg' onClick={() => this.props.handleClick(null)}>
                 <div className={`${color} modal`}>
-                <p className='close-button' onClick={() => this.props.handleClick(null)}>&#10005;</p>
+                <p className='close-button'></p>
 
                     <div className='left'>
-                        <h2 className='name'>{name}</h2>
-                        <p>{this.props.taskremaining} Remaining | Completed {this.props.taskcompleted}</p>
-                        <ul className={`${color}-text membersList`}>{membersList}</ul>
+                        <p className='modal-name'>{name}</p>
+                        <p className='modal-task'>{this.props.taskremaining} Remaining | Completed {this.props.taskcompleted}</p>
+                        <ul className={`${color}-text modal-membersList`}>{membersList}</ul>
                     </div>
                     <div className='right'>
 
-                        <p>{renderDate(modified_at)}</p>
-                        <p>{text}</p>
+                        <p className='modal-updated'>{renderDate(modified_at)}</p>
+                        <p className='modal-text'>{text}</p>
                     </div>
 
                 </div>

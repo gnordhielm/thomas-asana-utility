@@ -48950,7 +48950,6 @@ var App = function (_React$Component) {
 		_this.handleClick = _this.handleClick.bind(_this);
 		_this.componentWillMount = _this.componentWillMount.bind(_this);
 		_this.changeDisplay = _this.changeDisplay.bind(_this);
-
 		return _this;
 	}
 
@@ -48965,6 +48964,7 @@ var App = function (_React$Component) {
 					url: "https://app.asana.com/api/1.0/projects",
 					type: "GET",
 					headers: { "Authorization": 'Bearer ' + localStorage.getItem('accessToken') },
+
 					success: function success(response) {
 						response.data.forEach(function (item) {
 							_jquery2.default.ajax({
@@ -48994,6 +48994,11 @@ var App = function (_React$Component) {
 											var activeProjects = that.state.projectsToShow.slice();
 											if (thisProject.team.name == 'Active') {
 												activeProjects.push(thisProject);
+												activeProjects.sort(function (a, b) {
+													if (a.name < b.name) return -1;
+													if (a.name > b.name) return 1;
+													return 0;
+												});
 											}
 											that.setState({
 												projects: newProjects,
@@ -49010,28 +49015,6 @@ var App = function (_React$Component) {
 				});
 			}, 0);
 		}
-		// componentDidMount() {
-		// 	var that = this
-		// 	var currentProjects = that.state.projects.slice()
-		// 	setTimeout(() => {
-		// 		currentProjects.map((proj) => {
-		// 			return proj.tasks.map((task) => {
-		// 				return $.ajax({
-		// 					url: `https://app.asana.com/api/1.0/tasks/${task.id}`,
-		// 					type: "GET",
-		// 					headers: {
-		// 						"Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-		// 					},
-		// 					success: function(fullTask) {
-		// 						return fullTask
-		// 					}
-		// 				})
-		// 			})
-		// 		})
-		// 		console.log(currentProjects)
-		// 	}, 3000)
-		// }
-
 	}, {
 		key: 'handleClick',
 		value: function handleClick(project, remaining, completed) {
@@ -49113,7 +49096,7 @@ var App = function (_React$Component) {
 
 			var projectList = this.state.projectsToShow.length === 0 ? _react2.default.createElement(
 				'p',
-				null,
+				{ className: 'loading-text' },
 				'Loading...'
 			) : this.state.projectsToShow.map(function (project, idx) {
 				var _React$createElement;
@@ -49130,7 +49113,7 @@ var App = function (_React$Component) {
 					_react2.default.createElement(
 						'h1',
 						{ className: 'navJob' },
-						'Job Status Board'
+						'Weekly Status'
 					),
 					_react2.default.createElement(
 						'ul',
@@ -49139,7 +49122,7 @@ var App = function (_React$Component) {
 						_react2.default.createElement(
 							'li',
 							{ className: 'logout', onClick: this.logOut },
-							'Log out'
+							'Logout'
 						)
 					),
 					_react2.default.createElement(_ProjectModal2.default, { handleClick: this.handleClick, taskremaining: this.state.taskremaining, taskcompleted: this.state.taskcompleted, project: this.state.modal })
@@ -52206,7 +52189,7 @@ var ProjectModal = function (_React$Component) {
                 }
                 return _react2.default.createElement(
                     'li',
-                    { className: 'whitecircle', key: member.id },
+                    { className: 'whitecircle-modal', key: member.id },
                     initials
                 );
             });
@@ -52215,35 +52198,31 @@ var ProjectModal = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'modal-bg' },
+                { className: 'modal-bg', onClick: function onClick() {
+                        return _this2.props.handleClick(null);
+                    } },
                 _react2.default.createElement(
                     'div',
                     { className: color + ' modal' },
-                    _react2.default.createElement(
-                        'p',
-                        { className: 'close-button', onClick: function onClick() {
-                                return _this2.props.handleClick(null);
-                            } },
-                        '\u2715'
-                    ),
+                    _react2.default.createElement('p', { className: 'close-button' }),
                     _react2.default.createElement(
                         'div',
                         { className: 'left' },
                         _react2.default.createElement(
-                            'h2',
-                            { className: 'name' },
+                            'p',
+                            { className: 'modal-name' },
                             name
                         ),
                         _react2.default.createElement(
                             'p',
-                            null,
+                            { className: 'modal-task' },
                             this.props.taskremaining,
                             ' Remaining | Completed ',
                             this.props.taskcompleted
                         ),
                         _react2.default.createElement(
                             'ul',
-                            { className: color + '-text membersList' },
+                            { className: color + '-text modal-membersList' },
                             membersList
                         )
                     ),
@@ -52252,12 +52231,12 @@ var ProjectModal = function (_React$Component) {
                         { className: 'right' },
                         _react2.default.createElement(
                             'p',
-                            null,
+                            { className: 'modal-updated' },
                             renderDate(modified_at)
                         ),
                         _react2.default.createElement(
                             'p',
-                            null,
+                            { className: 'modal-text' },
                             text
                         )
                     )
@@ -52353,7 +52332,7 @@ var ProjectSummary = function (_React$Component) {
           modified_at = _props$project.modified_at,
           id = _props$project.id,
           members = _props$project.members;
-
+      // Display color
 
       if (!color) {
         current_status ? color = current_status.color : color = 'default';
@@ -52368,6 +52347,7 @@ var ProjectSummary = function (_React$Component) {
       } else {
         var text = 'No update available.';
       }
+
       var renderDate = function renderDate(date) {
         return new Date(date).toDateString();
       };
@@ -52407,12 +52387,12 @@ var ProjectSummary = function (_React$Component) {
             return _this2.props.handleClick(_this2.props.project, taskremaining, taskcompleted);
           } },
         _react2.default.createElement(
-          'h2',
-          { className: 'name' },
+          'p',
+          { className: 'summary-name' },
           name
         ),
         _react2.default.createElement(
-          'h5',
+          'p',
           { className: 'taskline', key: this.state.tasks },
           taskremaining,
           ' Remaining | Completed ',
@@ -52424,12 +52404,12 @@ var ProjectSummary = function (_React$Component) {
           membersList
         ),
         _react2.default.createElement(
-          'h3',
+          'p',
           { className: 'updated' },
           renderDate(modified_at)
         ),
         _react2.default.createElement(
-          'h5',
+          'p',
           { className: 'project-text' },
           text
         )
@@ -52572,7 +52552,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  background-color: gray;\n  /* Green */\n  border: none;\n  color: black;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 12px; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 78px;\n  padding-top: 1px;\n  padding-left: 15px; }\n\n.navJob {\n  display: inline-block;\n  float: left; }\n\nul {\n  text-align: center;\n  padding-left: 0; }\n\n.navright {\n  list-style-type: none;\n  font-size: 20px;\n  float: right;\n  cursor: pointer;\n  padding-top: 10px; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n* {\n  font-family: 'HelveticaNeueW02-45Light', Helvetica, sans-serif; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  cursor: pointer;\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 20%;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 20px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.name {\n  margin-bottom: -15px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.project-summary {\n  list-style-type: none;\n  width: 221px;\n  min-height: 250px;\n  max-height: 250px;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  margin: 1px;\n  padding: 5px;\n  padding-left: 10px;\n  zoom: 1;\n  *display: inline;\n  _height: 250px;\n  text-align: left; }\n\n.membersList {\n  list-style-type: none;\n  text-align: left; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: left;\n  padding: 10px;\n  margin: 3px; }\n\n.name {\n  margin-bottom: -15px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.green-text {\n  color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.yellow-text {\n  color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.red-text {\n  color: #e5494c; }\n\n.default {\n  background-color: #314463; }\n\n.default-text {\n  color: #314463; }\n", ""]);
+exports.push([module.i, ".logout {\n  /* Green */\n  border: none;\n  color: white;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 16px; }\n\n.loading-text {\n  color: white; }\n\nbody {\n  background-color: black; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 121.5px;\n  padding-top: 1px;\n  width: auto; }\n\n.navJob {\n  display: inline-block;\n  float: left;\n  font-size: 44px;\n  padding-left: 33px;\n  margin-top: 40px; }\n\nul {\n  text-align: left;\n  padding-left: 0;\n  margin-top: 0; }\n\n.navright {\n  list-style-type: none;\n  font-size: 32px;\n  float: right;\n  cursor: pointer;\n  margin-top: 50px;\n  padding-right: 33px; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n* {\n  font-family: 'Metropolis', Helvetica, sans-serif;\n  font-weight: normal; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-button {\n  cursor: pointer;\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 25%;\n  height: 1000px;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  height: 1000px;\n  display: inline-block;\n  vertical-align: top;\n  padding-left: 33px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    overflow: scroll;\n    height: 90vh; } }\n\n.modal-name {\n  font-size: 60px;\n  margin-top: 33px;\n  padding-left: 33px; }\n\n.modal-task {\n  font-size: 21px;\n  margin-top: 525px;\n  padding-left: 33px; }\n\n.modal-updated {\n  font-size: 40px;\n  padding-top: 110px;\n  padding-left: 33px; }\n\n.modal-text {\n  font-size: 40px;\n  padding-left: 33px;\n  padding-right: 33px;\n  line-height: 48px; }\n\n.modal-membersList {\n  text-align: left;\n  padding-left: 33px; }\n\n.whitecircle-modal {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  font-size: 26px;\n  padding: 10px;\n  margin: 5px;\n  height: 64px;\n  width: 64px;\n  line-height: 64px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.project-summary {\n  list-style-type: none;\n  width: 479px;\n  height: 479px;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  text-align: left;\n  border: .1px solid black; }\n\n.membersList {\n  list-style-type: none;\n  text-align: left;\n  padding-left: 28px; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  font-size: 18px;\n  padding: 10px;\n  margin: 5px;\n  height: 41.56px;\n  width: 41.56px;\n  line-height: 40px; }\n\n.summary-name {\n  margin-bottom: -15px;\n  font-size: 44px;\n  padding-left: 33px;\n  padding-right: 33px; }\n\n.taskline {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 10px;\n  font-size: 16px; }\n\n.updated {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 10px;\n  font-size: 20px; }\n\n.project-text {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 5px;\n  font-size: 20px;\n  line-height: 24px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.green-text {\n  color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.yellow-text {\n  color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.red-text {\n  color: #e5494c; }\n\n.default {\n  background-color: #314463; }\n\n.default-text {\n  color: #314463; }\n", ""]);
 
 // exports
 
