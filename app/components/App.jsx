@@ -155,7 +155,7 @@ class App extends React.Component {
     })
 
 		var projectList = this.state.projectsToShow.length === 0
-				? <p>Loading...</p>
+				? <p className='loading-text'>Loading...</p>
 				: this.state.projectsToShow.map((project, idx) => {
 					return <ProjectSummary key={idx} handleClick={this.handleClick} key={project.id} project={project} />
 				})
