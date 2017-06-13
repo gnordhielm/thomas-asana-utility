@@ -43,7 +43,7 @@ class ProjectSummary extends React.Component {
             id,
             members
         } = this.props.project
-
+// Display color
         if (!color) {
             current_status
                 ? color = current_status.color
@@ -59,6 +59,7 @@ class ProjectSummary extends React.Component {
 				} else {
 					var text = 'No update available.'
 				}
+
         var renderDate = (date) => {
             return new Date(date).toDateString()
         }

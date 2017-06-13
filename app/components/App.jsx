@@ -171,6 +171,7 @@ class App extends React.Component {
 					<ProjectModal handleClick={this.handleClick} taskremaining={this.state.taskremaining} taskcompleted={this.state.taskcompleted} project={this.state.modal}/>
 				</div>
 
+
 				<ul>
 					{projectList}
 				</ul>
