@@ -54,15 +54,22 @@ class ProjectSummary extends React.Component {
           color = 'default'
         }
 
-        if (current_status) {
-					var text = current_status.text;
-				} else {
-					var text = 'No update available.'
+// Display text in various forms...
+
+        if (current_status && current_status.text.length > 260) {
+					var text = current_status.text.substring(0, 260) + ' ...';
 				}
+        else if (current_status) {
+          var text = current_status.text;
+        } else {
+					var text = 'No update available.'
+				};
+
 
         var renderDate = (date) => {
             return new Date(date).toDateString()
-        }
+        };
+
 // Display team members
         var teamMembersList = members.map((member, i, arr) => {
             if (i === arr.length - 1)
