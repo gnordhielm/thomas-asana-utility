@@ -8,7 +8,7 @@ class Login extends React.Component {
 	render() {
 		return (
 			<div className='login'>
-				<h1>Asana Project Heads Up</h1>
+				<h1 className='login-text'>Asana Project Heads Up</h1>
 				<a href={Asana.AUTH_ENDPOINT}>
 					<button className='login-button'>Log in</button>
 				</a>
