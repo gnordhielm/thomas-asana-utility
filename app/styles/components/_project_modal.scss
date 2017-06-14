@@ -7,6 +7,7 @@
   top: 0;
   left: 0;
   overflow: hidden;
+  overflow-y: auto;
 }
 
 .close-button {
@@ -59,7 +60,6 @@ top: 16px;
   }
 
   .modal {
-    overflow: scroll;
     height: 90vh;
   }
 }
