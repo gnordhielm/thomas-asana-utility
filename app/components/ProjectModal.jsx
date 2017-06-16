@@ -20,15 +20,18 @@ class ProjectModal extends React.Component {
             workspace
         } = this.props.project
 
+// Display color of modal
+
         if (!color) {
             current_status
                 ? color = current_status.color
                 : color = 'default'
         }
 
-        if (color == null) {
+        if (color !== 'red' && color !== 'green' && color !== 'yellow' || color === null) {
           color = 'default'
         }
+// Display text of modal
 
         if (current_status) {
             var text = current_status.text;
@@ -36,17 +39,20 @@ class ProjectModal extends React.Component {
             var text = 'No update available.'
         }
 
+// Display project date
+
         var renderDate = (date) => {
             return new Date(date).toDateString()
         }
+
+// Display team members
 
         var teamMembersList = members.map((member, i, arr) => {
             if (i === arr.length - 1)
                 return `and ${member.name}.`
             return `${member.name}, `
         })
-
-        // Display team members
+        
             var membersList = members.map((member) => {
               var names = member.name.split(' ')
               var initials = ''

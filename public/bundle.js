@@ -52153,14 +52153,16 @@ var ProjectModal = function (_React$Component) {
                 members = _props$project.members,
                 workspace = _props$project.workspace;
 
+            // Display color of modal
 
             if (!color) {
                 current_status ? color = current_status.color : color = 'default';
             }
 
-            if (color == null) {
+            if (color !== 'red' && color !== 'green' && color !== 'yellow' || color === null) {
                 color = 'default';
             }
+            // Display text of modal
 
             if (current_status) {
                 var text = current_status.text;
@@ -52168,16 +52170,19 @@ var ProjectModal = function (_React$Component) {
                 var text = 'No update available.';
             }
 
+            // Display project date
+
             var renderDate = function renderDate(date) {
                 return new Date(date).toDateString();
             };
+
+            // Display team members
 
             var teamMembersList = members.map(function (member, i, arr) {
                 if (i === arr.length - 1) return 'and ' + member.name + '.';
                 return member.name + ', ';
             });
 
-            // Display team members
             var membersList = members.map(function (member) {
                 var names = member.name.split(' ');
                 var initials = '';
@@ -52338,20 +52343,20 @@ var ProjectSummary = function (_React$Component) {
         current_status ? color = current_status.color : color = 'default';
       }
 
-      if (color == null) {
+      if (color !== 'red' && color !== 'green' && color !== 'yellow' || color === null) {
         color = 'default';
       }
 
-      // Display text in various forms...
-
-      if (current_status && current_status.text.length > 260) {
-        var text = current_status.text.substring(0, 260) + ' ...';
+      // Display text according to length...
+      if (current_status && current_status.text.length > 200) {
+        var text = current_status.text.substring(0, 200) + ' ...';
       } else if (current_status) {
         var text = current_status.text;
       } else {
         var text = 'No update available.';
       };
 
+      // Display the date
       var renderDate = function renderDate(date) {
         return new Date(date).toDateString();
       };
@@ -52557,7 +52562,7 @@ exports = module.exports = __webpack_require__(202)();
 
 
 // module
-exports.push([module.i, ".logout {\n  /* Green */\n  border: none;\n  color: white;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 16px; }\n\n.loading-text {\n  color: white; }\n\nbody {\n  background-color: black; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 121.5px;\n  padding-top: 1px;\n  width: auto; }\n\n.navJob {\n  display: inline-block;\n  float: left;\n  font-size: 44px;\n  padding-left: 33px;\n  margin-top: 40px; }\n\nul {\n  text-align: left;\n  padding-left: 0;\n  margin-top: 0; }\n\n.navright {\n  list-style-type: none;\n  font-size: 32px;\n  float: right;\n  cursor: pointer;\n  margin-top: 50px;\n  padding-right: 33px; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n* {\n  font-family: 'Metropolis', Helvetica, sans-serif;\n  font-weight: normal; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-text {\n  color: white; }\n\n.login-button {\n  cursor: pointer;\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden;\n  overflow-y: auto; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 25%;\n  height: 1000px;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  height: 1000px;\n  display: inline-block;\n  vertical-align: top;\n  padding-left: 33px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    height: 90vh; } }\n\n.modal-name {\n  font-size: 60px;\n  margin-top: 33px;\n  padding-left: 33px; }\n\n.modal-task {\n  font-size: 21px;\n  margin-top: 525px;\n  padding-left: 33px; }\n\n.modal-updated {\n  font-size: 40px;\n  padding-top: 110px;\n  padding-left: 33px; }\n\n.modal-text {\n  font-size: 40px;\n  padding-left: 33px;\n  padding-right: 33px;\n  line-height: 48px; }\n\n.modal-membersList {\n  text-align: left;\n  padding-left: 33px; }\n\n.whitecircle-modal {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  font-size: 26px;\n  padding: 10px;\n  margin: 5px;\n  height: 64px;\n  width: 64px;\n  line-height: 64px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.project-summary {\n  list-style-type: none;\n  width: 479px;\n  height: 479px;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  text-align: left;\n  border: .1px solid black; }\n\n.membersList {\n  list-style-type: none;\n  text-align: left;\n  padding-left: 28px; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  font-size: 18px;\n  padding: 10px;\n  margin: 5px;\n  height: 41.56px;\n  width: 41.56px;\n  line-height: 40px; }\n\n.summary-name {\n  margin-bottom: -15px;\n  font-size: 44px;\n  padding-left: 33px;\n  padding-right: 33px; }\n\n.taskline {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 10px;\n  font-size: 16px; }\n\n.updated {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 10px;\n  font-size: 20px; }\n\n.project-text {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 5px;\n  font-size: 20px;\n  line-height: 24px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.green-text {\n  color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.yellow-text {\n  color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.red-text {\n  color: #e5494c; }\n\n.default {\n  background-color: #314463; }\n\n.default-text {\n  color: #314463; }\n", ""]);
+exports.push([module.i, ".logout {\n  /* Green */\n  border: none;\n  color: white;\n  padding: 5px 15px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  font-size: 16px; }\n\n.loading-text {\n  color: white;\n  padding-left: 33px; }\n\nbody {\n  background-color: black; }\n\n.navbar {\n  color: white;\n  background-color: black;\n  height: 121.5px;\n  padding-top: 1px;\n  width: auto; }\n\n.navJob {\n  display: inline-block;\n  float: left;\n  font-size: 44px;\n  padding-left: 33px;\n  margin-top: 40px; }\n\nul {\n  text-align: left;\n  padding-left: 0;\n  margin-top: 0; }\n\n.navright {\n  list-style-type: none;\n  font-size: 32px;\n  float: right;\n  cursor: pointer;\n  margin-top: 50px;\n  padding-right: 33px; }\n  .navright li {\n    display: inline-block;\n    margin: 0 5px; }\n\n* {\n  font-family: 'Metropolis', Helvetica, sans-serif;\n  font-weight: normal; }\n\n.login {\n  margin: 0 auto;\n  text-align: center; }\n\n.login-text {\n  color: white; }\n\n.login-button {\n  cursor: pointer;\n  background-color: #4CAF50;\n  /* Green */\n  border: none;\n  color: white;\n  padding: 15px 32px;\n  border-radius: 10px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 16px; }\n\n.modal-bg {\n  background: rgba(0, 0, 0, 0.7);\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  position: fixed;\n  top: 0;\n  left: 0;\n  overflow: hidden;\n  overflow-y: auto; }\n\n.close-button {\n  float: right; }\n\n.modal {\n  margin: 20px;\n  color: white;\n  position: relative; }\n\n.close-button {\n  cursor: pointer;\n  font-size: 30px;\n  margin-top: 0;\n  margin-right: -25px;\n  position: absolute;\n  right: 49px;\n  top: 16px; }\n\n.left {\n  border-right: 1px solid black;\n  width: 25%;\n  height: 1000px;\n  display: inline-block;\n  padding: 20px; }\n\n.right {\n  width: 70%;\n  height: 1000px;\n  display: inline-block;\n  vertical-align: top;\n  padding-left: 33px; }\n\n@media screen and (max-width: 850px) {\n  .left {\n    border-right: none;\n    border-bottom: 1px solid black; }\n  .right, .left {\n    display: block;\n    width: auto;\n    padding-right: 10px; }\n  .modal {\n    height: 90vh; } }\n\n.modal-name {\n  font-size: 60px;\n  margin-top: 33px;\n  padding-left: 33px; }\n\n.modal-task {\n  font-size: 21px;\n  margin-top: 525px;\n  padding-left: 33px; }\n\n.modal-updated {\n  font-size: 40px;\n  padding-top: 110px;\n  padding-left: 33px; }\n\n.modal-text {\n  font-size: 40px;\n  padding-left: 33px;\n  padding-right: 33px;\n  line-height: 48px;\n  white-space: pre-line; }\n\n.modal-membersList {\n  text-align: left;\n  padding-left: 33px; }\n\n.whitecircle-modal {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  font-size: 26px;\n  padding: 10px;\n  margin: 5px;\n  height: 64px;\n  width: 64px;\n  line-height: 64px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.project-summary {\n  list-style-type: none;\n  width: 474px;\n  height: 474px;\n  display: -moz-inline-stack;\n  display: inline-block;\n  vertical-align: top;\n  color: white;\n  text-align: left;\n  border: .1px solid black; }\n\n.membersList {\n  list-style-type: none;\n  text-align: left;\n  padding-left: 28px; }\n\n.whitecircle {\n  display: inline-block;\n  background-color: white;\n  border-radius: 100px;\n  text-align: center;\n  font-size: 18px;\n  padding: 10px;\n  margin: 5px;\n  height: 41.56px;\n  width: 41.56px;\n  line-height: 40px; }\n\n.summary-name {\n  margin-bottom: -15px;\n  font-size: 44px;\n  padding-left: 33px;\n  padding-right: 33px; }\n\n.taskline {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 10px;\n  font-size: 16px; }\n\n.updated {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 10px;\n  font-size: 20px; }\n\n.project-text {\n  padding-left: 33px;\n  padding-right: 33px;\n  padding-top: 5px;\n  font-size: 20px;\n  line-height: 24px; }\n\n.green {\n  background-color: #44ba8f; }\n\n.green-text {\n  color: #44ba8f; }\n\n.yellow {\n  background-color: #f7b722; }\n\n.yellow-text {\n  color: #f7b722; }\n\n.red {\n  background-color: #e5494c; }\n\n.red-text {\n  color: #e5494c; }\n\n.default {\n  background-color: #314463; }\n\n.default-text {\n  color: #314463; }\n", ""]);
 
 // exports
 

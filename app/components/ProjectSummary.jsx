@@ -50,14 +50,13 @@ class ProjectSummary extends React.Component {
                 : color = 'default'
         }
 
-        if (color == null) {
+        if (color !== 'red' && color !== 'green' && color !== 'yellow' || color === null) {
           color = 'default'
         }
 
-// Display text in various forms...
-
-        if (current_status && current_status.text.length > 260) {
-					var text = current_status.text.substring(0, 260) + ' ...';
+// Display text according to length...
+        if (current_status && current_status.text.length > 200) {
+					var text = current_status.text.substring(0, 200) + ' ...';
 				}
         else if (current_status) {
           var text = current_status.text;
@@ -65,7 +64,7 @@ class ProjectSummary extends React.Component {
 					var text = 'No update available.'
 				};
 
-
+// Display the date
         var renderDate = (date) => {
             return new Date(date).toDateString()
         };
