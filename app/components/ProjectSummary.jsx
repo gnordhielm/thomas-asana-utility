@@ -50,19 +50,25 @@ class ProjectSummary extends React.Component {
                 : color = 'default'
         }
 
-        if (color == null) {
+        if (color !== 'red' && color !== 'green' && color !== 'yellow' || color === null) {
           color = 'default'
         }
 
-        if (current_status) {
-					var text = current_status.text;
-				} else {
-					var text = 'No update available.'
+// Display text according to length...
+        if (current_status && current_status.text.length > 200) {
+					var text = current_status.text.split('\n', 1) + ' ...';
 				}
+        else if (current_status) {
+          var text = current_status.text;
+        } else {
+					var text = 'No update available.'
+				};
 
+// Display the date
         var renderDate = (date) => {
             return new Date(date).toDateString()
-        }
+        };
+
 // Display team members
         var teamMembersList = members.map((member, i, arr) => {
             if (i === arr.length - 1)
