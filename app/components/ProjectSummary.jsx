@@ -56,7 +56,7 @@ class ProjectSummary extends React.Component {
 
 // Display text according to length...
         if (current_status && current_status.text.length > 200) {
-					var text = current_status.text.substring(0, 200) + ' ...';
+					var text = current_status.text.split('\n', 1) + ' ...';
 				}
         else if (current_status) {
           var text = current_status.text;
